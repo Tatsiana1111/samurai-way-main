@@ -1,12 +1,17 @@
 import React from 'react';
 import style from './Post.module.css'
 
-const Post = () => {
+export type PostType = {
+    message: string,
+    likeCount: number
+}
+
+const Post: React.FC<PostType> = (props) => {
     return (
         <div className={style.item}>
             <img src="https://iconape.com/wp-content/png_logo_vector/avatar-4.png"/>
-            Post1
-            <div><span>LIKE</span></div>
+            {props.message}
+            <div><span>LIKE: {props.likeCount}</span></div>
         </div>
     );
 };

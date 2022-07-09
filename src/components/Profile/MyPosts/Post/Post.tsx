@@ -7,6 +7,10 @@ export type PostType = {
     id: number
 }
 
+export type PostsType = {
+    posts: Array<PostType>
+}
+
 const Post: React.FC<PostType> = (props) => {
     return (
         <div className={style.item}>

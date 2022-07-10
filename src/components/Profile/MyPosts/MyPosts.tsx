@@ -1,10 +1,9 @@
 import React from 'react';
 import style from './MyPosts.module.css'
-import Post, {PostsType} from "./Post/Post";
+import Post from "./Post/Post";
+import {ProfilePageType} from "../../../redux/state";
 
-const MyPosts = (props: PostsType) => {
-
-    // @ts-ignore
+const MyPosts = (props: ProfilePageType) => {
     return (
         <div className={style.postsBlock}><h3>My posts</h3>
             <div>

@@ -20,6 +20,8 @@ export type DialogsPageType = {
     dialogs: Array<DialogsItemType>
     messages: Array<MessageType>
 }
+
+
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
@@ -51,5 +53,14 @@ export let state: RootStateType = {
             {message: 'Very well!', id: 5},
         ],
     },
+}
+
+export const addPost = (postMessage: string) => {
+    const newPost: PostType = {
+        message: postMessage,
+        likeCount: 0,
+        id: 5
+    }
+    state.profilePage.posts.push(newPost)
 }
 

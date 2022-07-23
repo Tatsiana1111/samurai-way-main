@@ -8,7 +8,7 @@ import {BrowserRouter, Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {RootStateType, state} from "./redux/state";
+import {RootStateType, state, updateNewPostText} from "./redux/state";
 import {addPost} from "./redux/state";
 
 type AppType = {
@@ -27,7 +27,9 @@ function App(props: AppType) {
                            />}/>
                     <Route path='/profile'
                            render={() => <Profile statePosts={state.profilePage}
-                                                  addPost={addPost}/>}/>
+                                                  addPost={addPost}
+                                                  updateNewPostText={updateNewPostText}
+                           />}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>
                     <Route path='/settings' component={Settings}/>

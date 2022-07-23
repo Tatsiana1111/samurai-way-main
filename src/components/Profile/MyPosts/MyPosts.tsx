@@ -4,7 +4,7 @@ import Post from "./Post/Post";
 import {PostType, ProfilePageType} from "../../../redux/state";
 
 type MyPostsPropsType = {
-    posts: Array<PostType>
+    statePost: ProfilePageType
     addPost: (postMessage: string) => void
 }
 
@@ -15,6 +15,7 @@ const MyPosts = (props: MyPostsPropsType) => {
     const addPost = () => {
         if (newPostElement.current) {
             props.addPost(newPostElement.current?.value)
+            newPostElement.current.value = ''
         }
     }
     return (
@@ -26,8 +27,8 @@ const MyPosts = (props: MyPostsPropsType) => {
                 </div>
             </div>
             <div className={style.posts}>
-                {props.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
-                                               id={post.id}/>)}
+                {props.statePost.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
+                                                         id={post.id}/>)}
             </div>
         </div>
     );

@@ -1,12 +1,20 @@
 import React from 'react';
 import style from './MessageItem.module.css'
+import {DialogsPageType, ProfilePageType} from "../../../redux/state";
 
+type MessagesPropsType = {
+    stateMessage: DialogsPageType
+    addMessage: (MessageText: string) => void
+}
 
-const MessageItem = () => {
+const MessageItem = (props: MessagesPropsType) => {
     const newMessageElement = React.createRef<HTMLTextAreaElement>()
 
     const addMessage = () => {
-        alert(newMessageElement.current?.value)
+        if (newMessageElement.current) {
+            props.addMessage(newMessageElement.current?.value)
+            newMessageElement.current.value = ''
+        }
     }
     return (
         <div>

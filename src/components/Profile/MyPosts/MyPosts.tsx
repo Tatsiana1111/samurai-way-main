@@ -30,7 +30,11 @@ const MyPosts = (props: MyPostsPropsType) => {
     return (
         <div className={style.postsBlock}><h3>My posts</h3>
             <div>
-                <div><textarea onChange={onChangePostHandler} ref={newPostElement} value={props.statePost.newPostText}/>
+                <div><textarea
+                    onChange={onChangePostHandler}
+                    ref={newPostElement}
+                    value={props.statePost.newPostText}
+                />
                 </div>
                 <div>
                     <button onClick={addPost}>Add post</button>

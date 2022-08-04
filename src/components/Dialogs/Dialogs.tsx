@@ -7,7 +7,7 @@ import {Message} from "./Message/Message";
 
 type DialogsPropsType = {
     stateDialogs: DialogsPageType
-    addMessage: (messageText: string) => void
+    dispatch: any
 }
 export const Dialogs = (props: DialogsPropsType) => {
     let dialogsElement = props.stateDialogs.dialogs.map(dialog => <DialogsItem name={dialog.name} id={dialog.id}/>)
@@ -20,7 +20,8 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div>{messagesElement}</div>
             <div>
-                <MessageItem addMessage={props.addMessage} stateMessage={props.stateDialogs}/>
+                <MessageItem dispatch={props.dispatch} newMessageText={props.stateDialogs.newMessageText}
+                             stateMessage={props.stateDialogs}/>
             </div>
         </div>
     );

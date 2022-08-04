@@ -12,9 +12,7 @@ import {RootStateType} from "./redux/state";
 
 type AppType = {
     state: RootStateType
-    addPost: () => void
-    addMessage: (messageText: string) => void
-    updateNewPostText: (newText: string) => void
+    dispatch: any
 }
 
 function App(props: AppType) {
@@ -25,12 +23,11 @@ function App(props: AppType) {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path='/dialogs'
-                           render={() => <Dialogs addMessage={props.addMessage} stateDialogs={props.state.dialogsPage}
+                           render={() => <Dialogs dispatch={props.dispatch} stateDialogs={props.state.dialogsPage}
                            />}/>
                     <Route path='/profile'
                            render={() => <Profile statePosts={props.state.profilePage}
-                                                  addPost={props.addPost}
-                                                  updateNewPostText={props.updateNewPostText}
+                                                  dispatch={props.dispatch}
                            />}/>
                     <Route path='/news' component={News}/>
                     <Route path='/music' component={Music}/>

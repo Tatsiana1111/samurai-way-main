@@ -5,9 +5,8 @@ import {ProfilePageType} from "../../../redux/state";
 
 type MyPostsPropsType = {
     statePost: ProfilePageType
-    addPost: (postMessage: string) => void
+    dispatch: any
     newPostText: string
-    updateNewPostText: (newText: string) => void
 }
 
 const MyPosts = (props: MyPostsPropsType) => {
@@ -16,13 +15,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPost = () => {
         if (newPostElement.current) {
-            props.addPost('')
+            props.dispatch({type: 'ADD-POST'})
         }
     }
     const onChangePostHandler = () => {
         if (newPostElement.current) {
-            let text = newPostElement.current?.value
-            props.updateNewPostText(text)
+            let newText = newPostElement.current?.value
+            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText})
             newPostElement.current.value = ''
         }
     }

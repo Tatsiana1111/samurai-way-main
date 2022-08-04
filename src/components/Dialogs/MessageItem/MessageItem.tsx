@@ -4,21 +4,30 @@ import {DialogsPageType} from "../../../redux/state";
 
 type MessagesPropsType = {
     stateMessage: DialogsPageType
-    addMessage: (MessageText: string) => void
+    dispatch: any
+    newMessageText: string
 }
 
 const MessageItem = (props: MessagesPropsType) => {
     const newMessageElement = React.createRef<HTMLTextAreaElement>()
 
-    const addMessage = () => {
+    const onChangeMessageHandler = () => {
         if (newMessageElement.current) {
-            props.addMessage(newMessageElement.current?.value)
+            let messageText = newMessageElement.current?.value
+            props.dispatch({type: 'UPDATE-MESSAGE-TEXT', messageText})
             newMessageElement.current.value = ''
         }
     }
+    const addMessage = () => {
+        if (newMessageElement.current) {
+            props.dispatch({type: 'ADD-MESSAGE'})
+        }
+    }
+
     return (
         <div>
-            <textarea className={style.messageArea} ref={newMessageElement}></textarea>
+            <textarea value={props.stateMessage.newMessageText} className={style.messageArea} ref={newMessageElement}
+                      onChange={onChangeMessageHandler}></textarea>
             <button onClick={addMessage}>Add message</button>
         </div>
     );

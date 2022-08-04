@@ -25,41 +25,45 @@ export let store = {
                 {message: 'Okay, thanks', id: 5},
                 {message: 'Very well!', id: 5},
             ],
+            newMessageText: 'How are you??',
         },
     },
     render() {
         console.log('hi')
     },
+    subscribe(observer: () => void) {
+        this.render = observer
+    },
     getState() {
         return this._state
     },
-    addPost() {
-        const newPost: PostType = {
-            message: this._state.profilePage.newPostText,
-            likeCount: 0,
-            id: 5
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ''
+    dispatch(action: any) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostType = {
+                message: this._state.profilePage.newPostText,
+                likeCount: 0,
+                id: 5
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
 
-        this.render()
-    },
-    addMessage(messageText: string) {
-        const newMessage: MessageType = {
-            message: messageText,
-            id: 5
+            this.render()
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage: MessageType = {
+                message: this._state.dialogsPage.newMessageText,
+                id: 5
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this.render()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText
+            this.render()
+        } else if (action.type === 'UPDATE-MESSAGE-TEXT') {
+            this._state.dialogsPage.newMessageText = action.messageText
+            this.render()
         }
-        this._state.dialogsPage.messages.push(newMessage)
-        this.render()
     },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this.render()
-    },
-    subscribe(observer: () => void) {
-        this.render = observer
-    }
-
 }
 
 export type PostType = {
@@ -82,6 +86,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogsItemType>
     messages: Array<MessageType>
+    newMessageText: string
 }
 export type RootStateType = {
     profilePage: ProfilePageType

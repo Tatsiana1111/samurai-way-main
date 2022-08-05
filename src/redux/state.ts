@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST'
+const ADD_MESSAGE = 'ADD-MESSAGE'
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
+
 export let store = {
     _state: <RootStateType>{
         profilePage: {
@@ -38,7 +43,7 @@ export let store = {
         return this._state
     },
     dispatch(action: any) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost: PostType = {
                 message: this._state.profilePage.newPostText,
                 likeCount: 0,
@@ -48,7 +53,7 @@ export let store = {
             this._state.profilePage.newPostText = ''
 
             this.render()
-        } else if (action.type === 'ADD-MESSAGE') {
+        } else if (action.type === ADD_MESSAGE) {
             const newMessage: MessageType = {
                 message: this._state.dialogsPage.newMessageText,
                 id: 5
@@ -56,10 +61,10 @@ export let store = {
             this._state.dialogsPage.messages.push(newMessage)
             this._state.dialogsPage.newMessageText = ''
             this.render()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profilePage.newPostText = action.newText
             this.render()
-        } else if (action.type === 'UPDATE-MESSAGE-TEXT') {
+        } else if (action.type === UPDATE_MESSAGE_TEXT) {
             this._state.dialogsPage.newMessageText = action.messageText
             this.render()
         }
@@ -92,35 +97,15 @@ export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
 }
-
-
-// export const addPost = () => {
-//     const newPost: PostType = {
-//         message: state.profilePage.newPostText,
-//         likeCount: 0,
-//         id: 5
-//     }
-//     state.profilePage.posts.push(newPost)
-//     state.profilePage.newPostText = ''
-//
-//     render()
-// }
-
-// export const addMessage = (messageText: string) => {
-//     const newMessage: MessageType = {
-//         message: messageText,
-//         id: 5
-//     }
-//     state.dialogsPage.messages.push(newMessage)
-//
-//     render()
-// }
-
-// export const updateNewPostText = (newText: string) => {
-//     state.profilePage.newPostText = newText
-//     render()
-// }
-
-// export const subscribe = (observer: () => void) => {
-//     render = observer
-// }
+export const addPostActionCreator = () => {
+    return {type: ADD_POST}
+}
+export const addMessageActionCreator = () => {
+    return {type: ADD_MESSAGE}
+}
+export const onChangePostActionCreator = (text: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newText: text}
+}
+export const onChangeMessageActionCreator = (messageText: string) => {
+    return {type: UPDATE_MESSAGE_TEXT, messageText}
+}

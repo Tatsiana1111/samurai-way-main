@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {ProfilePageType} from "../../../redux/state";
+import {addPostActionCreator, onChangePostActionCreator, ProfilePageType} from "../../../redux/state";
 
 type MyPostsPropsType = {
     statePost: ProfilePageType
@@ -15,13 +15,13 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     const addPost = () => {
         if (newPostElement.current) {
-            props.dispatch({type: 'ADD-POST'})
+            props.dispatch(addPostActionCreator())
         }
     }
     const onChangePostHandler = () => {
         if (newPostElement.current) {
-            let newText = newPostElement.current?.value
-            props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText})
+            let text = newPostElement.current?.value
+            props.dispatch(onChangePostActionCreator(text))
             newPostElement.current.value = ''
         }
     }

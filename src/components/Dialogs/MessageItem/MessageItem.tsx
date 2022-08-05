@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './MessageItem.module.css'
-import {DialogsPageType} from "../../../redux/state";
+import {addMessageActionCreator, DialogsPageType, onChangeMessageActionCreator} from "../../../redux/state";
 
 type MessagesPropsType = {
     stateMessage: DialogsPageType
@@ -14,13 +14,13 @@ const MessageItem = (props: MessagesPropsType) => {
     const onChangeMessageHandler = () => {
         if (newMessageElement.current) {
             let messageText = newMessageElement.current?.value
-            props.dispatch({type: 'UPDATE-MESSAGE-TEXT', messageText})
+            props.dispatch(onChangeMessageActionCreator(messageText))
             newMessageElement.current.value = ''
         }
     }
     const addMessage = () => {
         if (newMessageElement.current) {
-            props.dispatch({type: 'ADD-MESSAGE'})
+            props.dispatch(addMessageActionCreator())
         }
     }
 

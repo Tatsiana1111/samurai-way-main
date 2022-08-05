@@ -26,7 +26,8 @@ const MessageItem = (props: MessagesPropsType) => {
 
     return (
         <div>
-            <textarea value={props.stateMessage.newMessageText} className={style.messageArea} ref={newMessageElement}
+            <textarea placeholder='Enter your message' value={props.stateMessage.newMessageText}
+                      className={style.messageArea} ref={newMessageElement}
                       onChange={onChangeMessageHandler}></textarea>
             <button onClick={addMessage}>Add message</button>
         </div>

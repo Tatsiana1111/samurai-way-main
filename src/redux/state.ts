@@ -30,7 +30,7 @@ export let store = {
                 {message: 'Okay, thanks', id: 5},
                 {message: 'Very well!', id: 5},
             ],
-            newMessageText: 'How are you??',
+            newMessageText: '',
         },
     },
     render() {

@@ -1,10 +1,51 @@
-const ADD_POST = 'ADD-POST'
-const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
+import {addPostActionCreator, onChangePostActionCreator, profileReducer} from "./profileReducer";
+import {addMessageActionCreator, dialogsReducer, onChangeMessageActionCreator} from "./dialogsReducer";
 
-export let store = {
-    _state: <RootStateType>{
+
+export type PostType = {
+    message: string
+    likeCount: number
+    id: number
+}
+export type MessageType = {
+    message: string
+    id: number
+}
+export type DialogsItemType = {
+    name: string
+    id: number
+}
+export type ProfilePageType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+export type DialogsPageType = {
+    dialogs: Array<DialogsItemType>
+    messages: Array<MessageType>
+    newMessageText: string
+}
+export type RootStateType = {
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
+    newsPage: object
+    musicPage: object
+    settingsPage: object
+}
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof onChangePostActionCreator>
+    | ReturnType<typeof onChangeMessageActionCreator>
+
+export type StoreType = {
+    _state: RootStateType
+    render: (_state: RootStateType) => void
+    subscribe: (observer: () => void) => void
+    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
+}
+export let store: StoreType = {
+    _state: {
         profilePage: {
             posts: [
                 {message: 'This is my first post!1!!1!', likeCount: 14, id: 1},
@@ -32,8 +73,11 @@ export let store = {
             ],
             newMessageText: '',
         },
+        newsPage: {},
+        musicPage: {},
+        settingsPage: {},
     },
-    render() {
+    render(_state: RootStateType) {
         console.log('hi')
     },
     subscribe(observer: () => void) {
@@ -43,69 +87,10 @@ export let store = {
         return this._state
     },
     dispatch(action: any) {
-        if (action.type === ADD_POST) {
-            const newPost: PostType = {
-                message: this._state.profilePage.newPostText,
-                likeCount: 0,
-                id: 5
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ''
-
-            this.render()
-        } else if (action.type === ADD_MESSAGE) {
-            const newMessage: MessageType = {
-                message: this._state.dialogsPage.newMessageText,
-                id: 5
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ''
-            this.render()
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profilePage.newPostText = action.newText
-            this.render()
-        } else if (action.type === UPDATE_MESSAGE_TEXT) {
-            this._state.dialogsPage.newMessageText = action.messageText
-            this.render()
-        }
-    },
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this.render(this._state)
+    }
 }
 
-export type PostType = {
-    message: string
-    likeCount: number
-    id: number
-}
-export type MessageType = {
-    message: string
-    id: number
-}
-export type DialogsItemType = {
-    name: string
-    id: number
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
-}
-export type DialogsPageType = {
-    dialogs: Array<DialogsItemType>
-    messages: Array<MessageType>
-    newMessageText: string
-}
-export type RootStateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-}
-export const addPostActionCreator = () => {
-    return {type: ADD_POST}
-}
-export const addMessageActionCreator = () => {
-    return {type: ADD_MESSAGE}
-}
-export const onChangePostActionCreator = (text: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: text}
-}
-export const onChangeMessageActionCreator = (messageText: string) => {
-    return {type: UPDATE_MESSAGE_TEXT, messageText}
-}
+

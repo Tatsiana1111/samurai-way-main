@@ -1,13 +1,16 @@
 import React from 'react';
 import style from './Dialogs.module.css'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
-import {DialogsPageType} from "../../redux/state";
+import {
+    ActionsTypes,
+    DialogsPageType
+} from "../../redux/state";
 import MessageItem from "./MessageItem/MessageItem";
 import {Message} from "./Message/Message";
 
 type DialogsPropsType = {
     stateDialogs: DialogsPageType
-    dispatch: any
+    dispatch: (action: ActionsTypes) => void
 }
 export const Dialogs = (props: DialogsPropsType) => {
     let dialogsElement = props.stateDialogs.dialogs.map(dialog => <DialogsItem name={dialog.name} id={dialog.id}/>)

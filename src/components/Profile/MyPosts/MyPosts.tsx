@@ -1,11 +1,15 @@
 import React from 'react';
 import style from './MyPosts.module.css'
 import Post from "./Post/Post";
-import {addPostActionCreator, onChangePostActionCreator, ProfilePageType} from "../../../redux/state";
+import {
+    ActionsTypes,
+    ProfilePageType
+} from "../../../redux/state";
+import {addPostActionCreator, onChangePostActionCreator} from "../../../redux/profileReducer";
 
 type MyPostsPropsType = {
     statePost: ProfilePageType
-    dispatch: any
+    dispatch: (action: ActionsTypes) => void
     newPostText: string
 }
 

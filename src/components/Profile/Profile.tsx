@@ -4,7 +4,7 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {
     ActionsTypes,
     ProfilePageType
-} from "../../redux/state";
+} from "../../redux/store";
 
 type ProfilePropsType = {
     statePosts: ProfilePageType

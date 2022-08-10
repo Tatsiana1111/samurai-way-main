@@ -11,7 +11,7 @@ import {Settings} from "./components/Settings/Settings";
 import {
     ActionsTypes,
     RootStateType
-} from "./redux/state";
+} from "./redux/store";
 
 type AppType = {
     state: RootStateType

@@ -4,7 +4,7 @@ import {DialogsItem} from "./DialogsItem/DialogsItem";
 import {
     ActionsTypes,
     DialogsPageType
-} from "../../redux/state";
+} from "../../redux/store";
 import MessageItem from "./MessageItem/MessageItem";
 import {Message} from "./Message/Message";
 

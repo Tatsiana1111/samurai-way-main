@@ -12,6 +12,7 @@ import {
     ActionsTypes,
     RootStateType
 } from "./redux/store";
+import {store} from "./redux/reduxStore";
 
 type AppType = {
     state: RootStateType
@@ -29,7 +30,7 @@ function App(props: AppType) {
                            render={() => <Dialogs dispatch={props.dispatch} stateDialogs={props.state.dialogsPage}
                            />}/>
                     <Route path='/profile'
-                           render={() => <Profile statePosts={props.state.profilePage}
+                           render={() => <Profile store={store} statePosts={props.state.profilePage}
                                                   dispatch={props.dispatch}
                            />}/>
                     <Route path='/news' component={News}/>

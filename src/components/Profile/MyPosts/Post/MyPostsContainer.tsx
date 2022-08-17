@@ -7,14 +7,15 @@ import {
 import {addPostActionCreator, onChangePostActionCreator} from "../../../../redux/profileReducer";
 
 type MyPostsContainerPropsType = {
+    store: StoreType
     statePost: ProfilePageType
     dispatch: (action: ActionsTypes) => void
 }
 
 const MyPostsContainer = (props: MyPostsContainerPropsType) => {
-
+    let state = props.store.getState()
     const addPost = () => {
-        return props.dispatch(addPostActionCreator())
+        return props.store.dispatch(addPostActionCreator())
     }
     const onChangePostHandler = (text: string) => {
         return props.dispatch(onChangePostActionCreator(text))

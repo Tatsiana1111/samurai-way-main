@@ -2,11 +2,13 @@ import React from 'react';
 import style from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {
-    ProfilePageType
+    PostType,
+    // ProfilePageType
 } from "../../../redux/store";
 
 type MyPostsPropsType = {
-    statePost: ProfilePageType
+    posts: PostType[]
+    newPostText: string
     onChangePostHandler: (text: string) => void
     addPost: () => void
 }
@@ -34,7 +36,7 @@ const MyPosts = (props: MyPostsPropsType) => {
                 <div><textarea
                     onChange={onChangePostHandler}
                     ref={newPostElement}
-                    value={props.statePost.newPostText}
+                    value={props.newPostText}
                 />
                 </div>
                 <div>
@@ -42,8 +44,8 @@ const MyPosts = (props: MyPostsPropsType) => {
                 </div>
             </div>
             <div className={style.posts}>
-                {props.statePost.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
-                                                         id={post.id}/>)}
+                {props.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
+                                               id={post.id}/>)}
             </div>
         </div>
     );

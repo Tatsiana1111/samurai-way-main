@@ -1,15 +1,12 @@
 import React from 'react';
 import MyPosts from "../MyPosts";
-import {
-    ActionsTypes,
-    ProfilePageType, StoreType
-} from "../../../../redux/store";
+import {StoreType} from "../../../../redux/store";
 import {addPostActionCreator, onChangePostActionCreator} from "../../../../redux/profileReducer";
 
 type MyPostsContainerPropsType = {
     store: StoreType
-    statePost: ProfilePageType
-    dispatch: (action: ActionsTypes) => void
+    // statePost: ProfilePageType
+    // dispatch: (action: ActionsTypes) => void
 }
 
 const MyPostsContainer = (props: MyPostsContainerPropsType) => {
@@ -18,10 +15,11 @@ const MyPostsContainer = (props: MyPostsContainerPropsType) => {
         return props.store.dispatch(addPostActionCreator())
     }
     const onChangePostHandler = (text: string) => {
-        return props.dispatch(onChangePostActionCreator(text))
+        return props.store.dispatch(onChangePostActionCreator(text))
     }
     return (
-        <MyPosts addPost={addPost} onChangePostHandler={onChangePostHandler} statePost={props.statePost}/>);
+        <MyPosts posts={state.profilePage.posts} newPostText={state.profilePage.newPostText} addPost={addPost}
+                 onChangePostHandler={onChangePostHandler}/>);
 
 }
 

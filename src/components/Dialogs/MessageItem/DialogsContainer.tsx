@@ -1,25 +1,27 @@
 import React from 'react';
-import {StoreType} from "../../../redux/store";
-import MessageItem from "./MessageItem";
 import {addMessageActionCreator, onChangeMessageActionCreator} from "../../../redux/dialogsReducer";
+import {StoreContext} from '../../../StoreContext';
+import MessageItem from "./MessageItem";
 
-type DialogsPropsType = {
-    store: StoreType
-    // stateDialogs: DialogsPageType
-    // dispatch: (action: ActionsTypes) => void
-}
-export const DialogsContainer = (props: DialogsPropsType) => {
-    let state = props.store.getState()
-
-    const onChangeMessageHandler = (messageText: string) => {
-        props.store.dispatch(onChangeMessageActionCreator(messageText))
-    }
-    const addMessage = () => {
-        props.store.dispatch(addMessageActionCreator())
-    }
-
+// type DialogsPropsType = {
+//     store: StoreType
+//     // stateDialogs: DialogsPageType
+//     // dispatch: (action: ActionsTypes) => void
+// }
+export const DialogsContainer = () => {
     return (
-        <MessageItem dialogsPage={state.dialogsPage} addMessage={addMessage}
-                     onChangeMessageHandler={onChangeMessageHandler}/>
-    );
+        <StoreContext.Consumer>
+            {(store) => {
+                let state = store.getState()
+                const onChangeMessageHandler = (messageText: string) => {
+                    store.dispatch(onChangeMessageActionCreator(messageText))
+                }
+                const addMessage = () => {
+                    store.dispatch(addMessageActionCreator())
+                }
+                return <MessageItem dialogsPage={state.dialogsPage} newMessageText={state.dialogsPage.newMessageText}
+                                    addMessage={addMessage} onChangeMessageHandler={onChangeMessageHandler}/>
+            }}
+        </StoreContext.Consumer>
+    )
 };

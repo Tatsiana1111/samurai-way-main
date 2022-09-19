@@ -1,17 +1,14 @@
 import React from 'react';
 import style from './Dialogs.module.css'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
-import {StoreType} from "../../redux/store";
+
 import {Message} from "./Message/Message";
 import {DialogsContainer} from "./MessageItem/DialogsContainer";
+import {store} from "../../redux/reduxStore";
 
-type DialogsPropsType = {
-    store: StoreType
-    // stateDialogs: DialogsPageType
-    // dispatch: (action: ActionsTypes) => void
-}
-export const Dialogs = (props: DialogsPropsType) => {
-    let state = props.store.getState()
+
+export const Dialogs = () => {
+    let state = store.getState()
     let dialogsElement = state.dialogsPage.dialogs.map(dialog => <DialogsItem name={dialog.name} id={dialog.id}/>)
     let messagesElement = state.dialogsPage.messages.map(message => <Message message={message.message}
                                                                              id={message.id}/>)
@@ -22,7 +19,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div>{messagesElement}</div>
             <div>
-                <DialogsContainer store={props.store}/>
+                <DialogsContainer/>
                 {/*<MessageItem dispatch={props.dispatch} newMessageText={props.stateDialogs.newMessageText}*/}
                 {/*             stateMessage={props.stateDialogs}/>*/}
             </div>

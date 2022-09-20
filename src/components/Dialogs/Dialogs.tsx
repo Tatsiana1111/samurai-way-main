@@ -3,8 +3,9 @@ import style from './Dialogs.module.css'
 import {DialogsItem} from "./DialogsItem/DialogsItem";
 
 import {Message} from "./Message/Message";
-import {DialogsContainer} from "./MessageItem/DialogsContainer";
+// import {DialogsContainer} from "./MessageItem/DialogsContainer";
 import {store} from "../../redux/reduxStore";
+import {DialogsContainer} from "./MessageItem/DialogsContainer";
 
 
 export const Dialogs = () => {

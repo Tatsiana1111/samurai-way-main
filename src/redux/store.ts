@@ -7,11 +7,11 @@ export type PostType = {
     likeCount: number
     id: number
 }
-export type MessageType = {
+type MessageType = {
     message: string
     id: number
 }
-export type DialogsItemType = {
+type DialogsItemType = {
     name: string
     id: number
 }

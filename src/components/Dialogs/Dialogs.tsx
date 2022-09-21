@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from './Dialogs.module.css'
-import {DialogsItem} from "./DialogsItem/DialogsItem";
+import {DialogsItem} from "./DialogsItem";
 
-import {Message} from "./Message/Message";
-// import {DialogsContainer} from "./MessageItem/DialogsContainer";
+import {Message} from "./Message";
 import {store} from "../../redux/reduxStore";
-import {DialogsContainer} from "./MessageItem/DialogsContainer";
+import {DialogsPageType} from "../../redux/store";
 
+type DialogsPropsType = {
+    addMessage: () => void
+    onChangeMessageHandler: (messageText: string) => void
+    dialogsPage: DialogsPageType
+}
 
-export const Dialogs = () => {
+export const Dialogs = (props: DialogsPropsType) => {
     let state = store.getState()
-    let dialogsElement = state.dialogsPage.dialogs.map(dialog => <DialogsItem name={dialog.name} id={dialog.id}/>)
-    let messagesElement = state.dialogsPage.messages.map(message => <Message message={message.message}
+    let dialogsElement = state.dialogsPage.dialogs.map(dialog => <DialogsItem name={dialog.name} key={dialog.id}
+                                                                              id={dialog.id}/>)
+    let messagesElement = state.dialogsPage.messages.map(message => <Message key={message.id} message={message.message}
                                                                              id={message.id}/>)
+    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.onChangeMessageHandler(e.currentTarget.value)
+    }
+    const addMessage = () => {
+        props.addMessage()
+    }
+
     return (
         <div className={style.dialogs}>
             <div className={style.dialogItems}>
@@ -20,9 +32,10 @@ export const Dialogs = () => {
             </div>
             <div>{messagesElement}</div>
             <div>
-                <DialogsContainer/>
-                {/*<MessageItem dispatch={props.dispatch} newMessageText={props.stateDialogs.newMessageText}*/}
-                {/*             stateMessage={props.stateDialogs}/>*/}
+            <textarea placeholder='Enter your message' value={props.dialogsPage.newMessageText}
+                      className={style.messageArea}
+                      onChange={onChangeMessageHandler}></textarea>
+                <button onClick={addMessage}>Add message</button>
             </div>
         </div>
     );

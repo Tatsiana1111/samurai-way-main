@@ -9,6 +9,7 @@
 }
 
 .divPhoto {
+    align-items: center;
     padding: 20px;
     display: flex;
     flex-direction: column;

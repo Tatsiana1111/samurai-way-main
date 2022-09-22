@@ -1,5 +1,26 @@
 .div {
+    width: 600px;
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    align-items: center;
+
+}
+
+.divPhoto {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+
+.divStatus {
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .avatar {

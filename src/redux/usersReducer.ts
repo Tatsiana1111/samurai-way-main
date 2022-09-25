@@ -1,8 +1,10 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USER_COUNT'
 
-export type UsersActionType = followACType | unfollowACType | setUsersACType
+export type UsersActionType = followACType | unfollowACType | setUsersACType | setPagesACType | setTotalUsersCountACType
 type LocationType = {
     city: string
     country: string
@@ -21,10 +23,16 @@ export type UserType = {
 }
 export type InitialStateType = {
     users: UserType[]
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 
 const initialState: InitialStateType = {
-    users: []
+    users: [],
+    pageSize: 10,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: UsersActionType): InitialStateType => {
@@ -48,7 +56,11 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
                 })
             }
         case SET_USERS:
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
+        case SET_CURRENT_PAGE:
+            return {...state, currentPage: action.currentPage}
+        case SET_TOTAL_USERS_COUNT:
+            return {...state, totalUsersCount: action.totalUsersCount}
         default:
             return state
     }
@@ -64,4 +76,12 @@ export const unfollowAC = (userID: number) => {
 type setUsersACType = ReturnType<typeof setUsersAC>
 export const setUsersAC = (users: UserType[]) => {
     return {type: SET_USERS, users} as const
+}
+type setPagesACType = ReturnType<typeof setPagesAC>
+export const setPagesAC = (currentPage: number) => {
+    return {type: SET_CURRENT_PAGE, currentPage} as const
+}
+type setTotalUsersCountACType = ReturnType<typeof setTotalUsersCountAC>
+export const setTotalUsersCountAC = (totalUsersCount: number) => {
+    return {type: SET_TOTAL_USERS_COUNT, totalUsersCount} as const
 }

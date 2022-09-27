@@ -15,6 +15,7 @@ import {
 } from "../../redux/usersReducer";
 import axios from "axios";
 import {Users} from "./Users";
+import {Preloader} from "../common/Preloader/Preloader";
 
 export type MapStatePropsType = InitialStateType
 export type MapDispatchPropsType = {
@@ -59,7 +60,8 @@ class UsersContainerComponent extends React.Component<UsersPropsType, UsersProps
 
         return (
             <>
-                {this.props.isFetching ? <img src={loader} alt="loading"/> : null}
+                {this.props.isFetching ?
+                    <Preloader/> : null}
                 <Users
                     users={this.props.users}
                     onPageChanged={this.onPageChanged}

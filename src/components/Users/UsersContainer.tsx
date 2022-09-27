@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {AppStoreType} from "../../redux/reduxStore";
-import {Dispatch} from "redux";
-import loader from '../../assets/images/loader.svg'
 
 import {
     follow,
@@ -17,8 +15,8 @@ import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 
-export type MapStatePropsType = InitialStateType
-export type MapDispatchPropsType = {
+type MapStatePropsType = InitialStateType
+type MapDispatchPropsType = {
     follow: (userID: number) => void
     unfollow: (userID: number) => void
     setUsers: (users: UserType[]) => void

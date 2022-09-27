@@ -4,7 +4,7 @@ import {DialogsItem} from "./DialogsItem";
 
 import {Message} from "./Message";
 import {store} from "../../redux/reduxStore";
-import {DialogsPageType} from "../../redux/store";
+import {DialogsPageType} from "../../redux/reduxStore";
 
 type DialogsPropsType = {
     addMessage: () => void

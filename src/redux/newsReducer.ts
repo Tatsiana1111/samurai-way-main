@@ -1,5 +1,5 @@
-import {ActionsTypes, RootStateType} from "./store";
+import {RootStateType} from "./reduxStore";
 
-const newsReducer = (state: RootStateType, action: ActionsTypes) => {
+const newsReducer = (state: RootStateType, action: any) => {
     return state
 }

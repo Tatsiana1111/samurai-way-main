@@ -1,19 +1,28 @@
-import {PostType, ProfilePageType} from "./store";
+import {PostType} from "./reduxStore";
+
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-type ActionType = onChangePostActionCreatorType | addPostActionCreatorType
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
+type ActionType = onChangePostActionCreatorType | addPostActionCreatorType | setUserProfileType
 
-const initialState = {
+export type InitialStateType = {
+    posts: PostType[]
+    newPostText: string
+    profile: any
+}
+
+const initialState: InitialStateType = {
     posts: [
         {message: 'This is my first post!1!!1!', likeCount: 14, id: 1},
         {message: 'Hello, welcome to Social Network', likeCount: 28, id: 2},
         {message: 'TypeScript is very difficult', likeCount: 4, id: 3},
     ],
     newPostText: 'SAMURAI',
+    profile: null,
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostType = {
@@ -21,26 +30,26 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 likeCount: 0,
                 id: 5
             }
-            // let stateCopy = {...state}
-            // stateCopy.posts = [...state.posts]
-            // stateCopy.posts.push(newPost)
-            // // state.posts.push(newPost)
-            // stateCopy.newPostText = ''
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         }
         case UPDATE_NEW_POST_TEXT: {
-            // let stateCopy = {...state}
-            // stateCopy.newPostText = action.newText
             return {...state, newPostText: action.newText}
+        }
+        case SET_USER_PROFILE: {
+            return {...state, profile: action.profile}
         }
     }
     return state
 }
-type onChangePostActionCreatorType = ReturnType<typeof onChangePostActionCreator>
-export const onChangePostActionCreator = (newText: string) => {
+type onChangePostActionCreatorType = ReturnType<typeof onChangePost>
+export const onChangePost = (newText: string) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: newText} as const
 }
-type addPostActionCreatorType = ReturnType<typeof addPostActionCreator>
-export const addPostActionCreator = () => {
+type addPostActionCreatorType = ReturnType<typeof addPost>
+export const addPost = () => {
     return {type: ADD_POST} as const
+}
+type setUserProfileType = ReturnType<typeof setUserProfile>
+export const setUserProfile = (profile: any) => {
+    return {type: SET_USER_PROFILE, profile} as const
 }

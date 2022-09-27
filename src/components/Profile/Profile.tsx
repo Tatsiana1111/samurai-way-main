@@ -1,20 +1,23 @@
 import React, {ChangeEvent} from 'react';
-import style from './MyPosts.module.css'
+import style from './Profile.module.css'
 import Post from "./Post";
 import {
     PostType
-} from "../../redux/store";
+} from "../../redux/reduxStore";
+import {store} from "../../redux/reduxStore";
+import {ProfileInfo} from "./ProfileInfo";
+
 
 type MyPostsPropsType = {
     posts: PostType[]
     newPostText: string
     onChangePostHandler: (text: string) => void
     addPost: () => void
+    profile: any
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
-
-    const newPostElement = React.createRef<HTMLTextAreaElement>()
+const Profile = (props: MyPostsPropsType) => {
+    let state = store.getState()
 
     const addPost = () => {
         props.addPost()
@@ -25,16 +28,12 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     return (
         <>
-            <div>
-                <div><img src="https://html5css.ru/howto/img_snow.jpg"/></div>
-                <div className={style.descriptionBlock}>ava + description</div>
-            </div>
+            <ProfileInfo profile={props.profile}/>
             <div className={style.postsBlock}><h3>My posts</h3>
                 <div>
                     <div><textarea
                         onChange={onChangePostHandler}
-                        ref={newPostElement}
-                        value={props.newPostText}
+                        value={state.profilePage.newPostText}
                     />
                     </div>
                     <div>
@@ -42,8 +41,8 @@ const MyPosts = (props: MyPostsPropsType) => {
                     </div>
                 </div>
                 <div className={style.posts}>
-                    {props.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
-                                                   id={post.id}/>)}
+                    {state.profilePage.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
+                                                               id={post.id}/>)}
                 </div>
             </div>
         </>
@@ -51,4 +50,4 @@ const MyPosts = (props: MyPostsPropsType) => {
     );
 };
 
-export default MyPosts;
+export default Profile;

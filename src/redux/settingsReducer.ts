@@ -1,5 +1,5 @@
-import {ActionsTypes, RootStateType} from "./store";
+import {RootStateType} from "./reduxStore";
 
-const settingsReducer = (state: RootStateType, action: ActionsTypes) => {
+const settingsReducer = (state: RootStateType, action: any) => {
     return state
 }

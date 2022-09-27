@@ -8,6 +8,7 @@ import {
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import axios from "axios";
+import {withRouter} from "react-router-dom";
 
 // type ProfileContainerPropsType = {
 //     newPostText: string
@@ -17,7 +18,11 @@ import axios from "axios";
 
 export class ProfileContainerComponent extends React.Component<any, any> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`).then(response => {
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 25313
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
             this.props.setUserProfile(
                 response.data
             )
@@ -45,9 +50,9 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     }
 }
 
-
+const withRouterProfileComponent = withRouter(ProfileContainerComponent)
 export const ProfileContainer = connect(mapStateToProps, {
     onChangePost,
     addPost,
     setUserProfile
-})(ProfileContainerComponent)
+})(withRouterProfileComponent)

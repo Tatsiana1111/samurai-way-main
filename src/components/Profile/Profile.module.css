@@ -5,3 +5,12 @@
 .posts {
     margin-top: 10px;
 }
+
+.descriptionBlock {
+    display: flex;
+    margin: 10px;
+}
+
+.descriptionStatus {
+    flex-direction: column;
+}

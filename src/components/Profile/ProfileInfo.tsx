@@ -11,14 +11,18 @@ export const ProfileInfo = (props: any) => {
     }
     return (
         <div>
-            <div><img alt='profileAvatar' src="https://html5css.ru/howto/img_snow.jpg"/></div>
+            <div>
+                <img alt='profileAvatar' src="https://html5css.ru/howto/img_snow.jpg"/>
+            </div>
             <div className={style.descriptionBlock}>
-                <img src={props.profile.photos.large}/>
-                <span>{props.profile.lookingForAJob === true ?
-                    <img style={{width: '40px', height: '40px'}} src={lookingForAJob}/> :
-                    <img style={{width: '40px', height: '40px'}} src={notLookingForAJob}/>}</span>
-                <span>{props.profile.lookingForAJobDescription}</span>
-                <div>{props.profile.fullName}</div>
+                <div><img style={{margin: '10px'}} src={props.profile.photos.small}/></div>
+                <div className={style.descriptionStatus}>
+                    <div style={{margin: '5px'}}><b>{props.profile.fullName}</b></div>
+                    <div>{props.profile.lookingForAJob === true ?
+                        <img style={{width: '40px', height: '40px'}} src={lookingForAJob}/> :
+                        <img style={{width: '40px', height: '40px'}} src={notLookingForAJob}/>}</div>
+                    <div style={{margin: '5px'}}>{props.profile.lookingForAJobDescription}</div>
+                </div>
             </div>
         </div>
     );

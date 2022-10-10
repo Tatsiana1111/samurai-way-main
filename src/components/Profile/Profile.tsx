@@ -41,7 +41,8 @@ const Profile = (props: MyPostsPropsType) => {
                     </div>
                 </div>
                 <div className={style.posts}>
-                    {state.profilePage.posts.map(post => <Post message={post.message} likeCount={post.likeCount}
+                    {state.profilePage.posts.map(post => <Post key={post.id} message={post.message}
+                                                               likeCount={post.likeCount}
                                                                id={post.id}/>)}
                 </div>
             </div>

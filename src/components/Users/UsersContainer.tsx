@@ -54,8 +54,6 @@ class UsersContainerComponent extends React.Component<UsersPropsType, UsersProps
     }
 
     render() {
-
-
         return (
             <>
                 {this.props.isFetching ?

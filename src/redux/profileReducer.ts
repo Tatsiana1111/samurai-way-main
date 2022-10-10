@@ -9,7 +9,29 @@ type ActionType = onChangePostActionCreatorType | addPostActionCreatorType | set
 export type InitialStateType = {
     posts: PostType[]
     newPostText: string
-    profile: any
+    profile: IMainUser | null
+}
+
+export interface IMainUser {
+    aboutMe: string
+    userId: number
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+    photos: {
+        small: string
+        large: string
+    }
 }
 
 const initialState: InitialStateType = {
@@ -50,6 +72,6 @@ export const addPost = () => {
     return {type: ADD_POST} as const
 }
 type setUserProfileType = ReturnType<typeof setUserProfile>
-export const setUserProfile = (profile: any) => {
+export const setUserProfile = (profile: IMainUser) => {
     return {type: SET_USER_PROFILE, profile} as const
 }

@@ -3,6 +3,7 @@ import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
 import {usersReducer} from "./usersReducer";
+import {authReducer} from "./authReducer";
 
 export type RootStateType = ReturnType<typeof rootReducers>
 export type PostType = {
@@ -31,7 +32,8 @@ export type DialogsPageType = {
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer,
 })
 
 export type AppStoreType = ReturnType<typeof rootReducers>

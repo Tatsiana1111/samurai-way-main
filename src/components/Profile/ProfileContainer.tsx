@@ -2,13 +2,13 @@ import React from "react";
 import Profile from "./Profile";
 import {AppStoreType} from "../../redux/reduxStore";
 import {
-    addPost,
+    addPost, IMainUser,
     InitialStateType,
     onChangePost, setUserProfile,
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import axios from "axios";
-import {withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 // type ProfileContainerPropsType = {
 //     newPostText: string
@@ -16,11 +16,11 @@ import {withRouter} from "react-router-dom";
 //     addPost: () => void
 // }
 
-export class ProfileContainerComponent extends React.Component<any, any> {
+export class ProfileContainerComponent extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = 25313
+            userId = '25313'
         }
         axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
             this.props.setUserProfile(
@@ -35,12 +35,22 @@ export class ProfileContainerComponent extends React.Component<any, any> {
                 profile={this.props.profile}
                 posts={this.props.posts}
                 newPostText={this.props.newPostText}
-                onChangePostHandler={this.props.onChangePostHandler}
-                addPost={this.props.addPost}/>
+                onChangePostHandler={this.props.onChangePost}
+                addPost={this.props.addPost}
+            />
         );
     }
 }
 
+type PropsType = MapDispatchToPropsType & MapStateToPropsType & RouteComponentProps<PathParamType>
+type PathParamType = {
+    userId: string
+}
+type MapDispatchToPropsType = {
+    onChangePost: (newText: string) => void
+    addPost: () => void
+    setUserProfile: (profile: IMainUser) => void
+}
 type MapStateToPropsType = InitialStateType
 let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     return {

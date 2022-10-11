@@ -12,10 +12,7 @@ export type UsersActionType =
     | setPagesACType
     | setTotalUsersCountACType
     | setIsFetchingACType
-type LocationType = {
-    city: string
-    country: string
-}
+
 type PhotosType = {
     small: string
     large: string

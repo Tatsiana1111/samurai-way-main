@@ -6,7 +6,7 @@ import {InitialStateType, setAuthUserData} from "../../redux/authReducer";
 import {AppStoreType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
-export class HeaderContainerComponent extends React.Component<PropsType> {
+class HeaderContainerComponent extends React.Component<PropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response => {
             if (response.data.resultCode === 0) {

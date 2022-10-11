@@ -8,12 +8,14 @@ export type InitialStateType = {
     email: string | null
     login: string | null
     id: string | null
+    isAuth: boolean
 }
 
 const initialState: InitialStateType = {
     email: null,
     login: null,
     id: null,
+    isAuth: false
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -21,7 +23,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data
+                ...action.data,
+                isAuth: true
             }
 
         default:

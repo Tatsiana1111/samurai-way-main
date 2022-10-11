@@ -1,16 +1,16 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Header} from "./Header";
-import axios from "axios";
-import {InitialStateType, setAuthUserData} from "../../redux/authReducer";
+import {setAuthUserData} from "../../redux/authReducer";
 import {AppStoreType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {authAPI} from "../../api/api";
 
 class HeaderContainerComponent extends React.Component<PropsType> {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {withCredentials: true}).then(response => {
-            if (response.data.resultCode === 0) {
-                let {email, login, id} = response.data.data
+        authAPI.getAuth().then(data => {
+            if (data.resultCode === 0) {
+                let {email, login, id} = data.data
                 this.props.setAuthUserData(email, login, id)
             }
         })
@@ -27,16 +27,18 @@ interface Promise {
     id: string
 }
 
-type MapStateToPropsType = InitialStateType
+interface MapStateToPropsType {
+    login: string | null
+    isAuth: boolean
+}
+
 type MapDispatchToPropsType = {
     setAuthUserData: (email: string, login: string, id: string) => void
 }
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<Promise>
-const mapStateToProps = (state: AppStoreType): InitialStateType => {
+const mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     return {
-        email: state.auth.email,
         login: state.auth.login,
-        id: state.auth.id,
         isAuth: state.auth.isAuth
     }
 }

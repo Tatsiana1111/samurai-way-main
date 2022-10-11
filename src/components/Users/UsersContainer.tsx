@@ -11,9 +11,10 @@ import {
     unfollow,
     UserType
 } from "../../redux/usersReducer";
-import axios from "axios";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
+import {userAPI} from "../../api/api";
+
 
 type MapStatePropsType = InitialStateType
 type MapDispatchPropsType = {
@@ -30,25 +31,24 @@ class UsersContainerComponent extends React.Component<UsersPropsType, UsersProps
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
             this.props.setIsFetching(false)
             this.props.setUsers(
-                response.data.items
+                data.items
             )
             this.props.setTotalUsersCount(
-                response.data.totalCount
+                data.totalCount
             )
-
         })
     }
 
     onPageChanged = (pageNumber: number) => {
         this.props.setPages(pageNumber)
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
+        userAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
             this.props.setIsFetching(false)
             this.props.setUsers(
-                response.data.items
+                data.items
             )
         })
     }
@@ -57,16 +57,16 @@ class UsersContainerComponent extends React.Component<UsersPropsType, UsersProps
         return (
             <>
                 {this.props.isFetching ?
-                    <Preloader/> : null}
-                <Users
-                    users={this.props.users}
-                    onPageChanged={this.onPageChanged}
-                    currentPage={this.props.currentPage}
-                    unfollow={this.props.unfollow}
-                    follow={this.props.follow}
-                    pageSize={this.props.pageSize}
-                    totalUsersCount={this.props.totalUsersCount}
-                />
+                    <Preloader/> :
+                    <Users
+                        users={this.props.users}
+                        onPageChanged={this.onPageChanged}
+                        currentPage={this.props.currentPage}
+                        unfollow={this.props.unfollow}
+                        follow={this.props.follow}
+                        pageSize={this.props.pageSize}
+                        totalUsersCount={this.props.totalUsersCount}
+                    />}
             </>);
         ;
     }

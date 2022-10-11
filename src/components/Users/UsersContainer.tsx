@@ -4,7 +4,7 @@ import {AppStoreType} from "../../redux/reduxStore";
 
 import {
     follow,
-    InitialStateType, setIsFetching,
+    InitialStateType, setIsFetching, setIsFollowingProgress,
     setPages,
     setTotalUsersCount,
     setUsers,
@@ -24,10 +24,11 @@ type MapDispatchPropsType = {
     setPages: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     setIsFetching: (isFetching: boolean) => void
+    setIsFollowingProgress: (isFetching: boolean, userID: number) => void
 }
 type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
-class UsersContainerComponent extends React.Component<UsersPropsType, UsersPropsType> {
+class UsersContainerComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.setIsFetching(true)
@@ -66,6 +67,8 @@ class UsersContainerComponent extends React.Component<UsersPropsType, UsersProps
                         follow={this.props.follow}
                         pageSize={this.props.pageSize}
                         totalUsersCount={this.props.totalUsersCount}
+                        setIsFollowingProgress={this.props.setIsFollowingProgress}
+                        followingInProgress={this.props.followingInProgress}
                     />}
             </>);
         ;
@@ -78,7 +81,8 @@ const mapStateToProps = (state: AppStoreType): MapStatePropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
@@ -100,6 +104,9 @@ const mapStateToProps = (state: AppStoreType): MapStatePropsType => {
 //         },
 //         setIsFetching: (isFetching: boolean) => {
 //             dispatch(setIsFetching(isFetching))
+//         },
+//          setIsFollowingProgress: (isFetching: boolean) => {
+//             dispatch(setIsFollowingProgress(isFetching))
 //         }
 //     }
 // }
@@ -111,4 +118,5 @@ export const UsersContainer = connect(mapStateToProps, {
     setPages,
     setTotalUsersCount,
     setIsFetching,
+    setIsFollowingProgress
 })(UsersContainerComponent);

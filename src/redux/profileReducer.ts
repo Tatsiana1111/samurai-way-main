@@ -45,7 +45,7 @@ const initialState: InitialStateType = {
     ],
     newPostText: 'SAMURAI',
     profile: null,
-    isAuth: false,
+    isAuth: false
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {

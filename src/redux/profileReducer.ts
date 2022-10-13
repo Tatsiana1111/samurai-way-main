@@ -12,6 +12,7 @@ export type InitialStateType = {
     posts: PostType[]
     newPostText: string
     profile: IMainUser | null
+    isAuth: boolean
 }
 
 export interface IMainUser {
@@ -44,6 +45,7 @@ const initialState: InitialStateType = {
     ],
     newPostText: 'SAMURAI',
     profile: null,
+    isAuth: false,
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {

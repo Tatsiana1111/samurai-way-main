@@ -7,7 +7,7 @@ import {
     onChangePost,
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 
 
 export class ProfileContainerComponent extends React.Component<PropsType> {
@@ -21,6 +21,9 @@ export class ProfileContainerComponent extends React.Component<PropsType> {
     }
 
     render() {
+        if (!this.props.isAuth) {
+            return <Redirect to='/login'/>
+        }
         return (
             <Profile
                 profile={this.props.profile}
@@ -47,7 +50,8 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 

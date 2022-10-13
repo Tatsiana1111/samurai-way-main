@@ -3,10 +3,9 @@ import {connect} from "react-redux";
 import {AppStoreType} from "../../redux/reduxStore";
 
 import {
-    follow, followUser, getUsers,
-    InitialStateType, setIsFollowingProgress,
-    setPages,
-    unfollow, unfollowUser,
+    followUser, getUsers,
+    InitialStateType,
+    setPages, unfollowUser,
 } from "../../redux/usersReducer";
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";

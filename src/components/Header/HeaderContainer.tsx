@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {Header} from "./Header";
-import {getAuth, setAuthUserData} from "../../redux/authReducer";
+import {getAuth} from "../../redux/authReducer";
 import {AppStoreType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 
@@ -27,7 +27,6 @@ interface MapStateToPropsType {
 }
 
 type MapDispatchToPropsType = {
-    setAuthUserData: (email: string, login: string, id: string) => void
     getAuth: () => void
 }
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps<Promise>

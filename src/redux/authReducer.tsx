@@ -1,9 +1,9 @@
 import {Dispatch} from "redux";
-import {authAPI, followAPI} from "../api/api";
-import {follow, setIsFollowingProgress} from "./usersReducer";
+import {usersAPI} from "../api/api";
+
 
 const SET_USER_DATA = 'SET_USER_DATA'
-// const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+
 
 export type AuthActionType =
     setAuthUserDataType
@@ -38,7 +38,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 export const getAuth = () => {
     return (dispatch: Dispatch) => {
-        authAPI.getAuth()
+        usersAPI.getAuth()
             .then(data => {
                 if (data.resultCode === 0) {
                     let {email, login, id} = data.data

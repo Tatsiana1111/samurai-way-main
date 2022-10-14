@@ -1,17 +1,12 @@
 import React, {ChangeEvent} from 'react';
 import style from './Profile.module.css'
 import Post from "./Post";
-import {
-    PostType
-} from "../../redux/reduxStore";
 import {store} from "../../redux/reduxStore";
 import {ProfileInfo} from "./ProfileInfo";
 
 
 type MyPostsPropsType = {
-    posts: PostType[]
-    newPostText: string
-    onChangePostHandler: (text: string) => void
+    onChangePost: (text: string) => void
     addPost: () => void
     profile: any
 }
@@ -23,7 +18,7 @@ const Profile = (props: MyPostsPropsType) => {
         props.addPost()
     }
     const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangePostHandler(e.currentTarget.value)
+        props.onChangePost(e.currentTarget.value)
     }
 
     return (
@@ -41,7 +36,7 @@ const Profile = (props: MyPostsPropsType) => {
                     </div>
                 </div>
                 <div className={style.posts}>
-                    {state.profilePage.posts.map(post => <Post key={post.id} message={post.message}
+                    {state.profilePage.posts.map(post => <Post {...props} key={post.id} message={post.message}
                                                                likeCount={post.likeCount}
                                                                id={post.id}/>)}
                 </div>

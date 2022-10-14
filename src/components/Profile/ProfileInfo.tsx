@@ -18,7 +18,7 @@ export const ProfileInfo = (props: any) => {
                 <div><img style={{margin: '10px'}} src={props.profile.photos.small}/></div>
                 <div className={style.descriptionStatus}>
                     <div style={{margin: '5px'}}><b>{props.profile.fullName}</b></div>
-                    <div>{props.profile.lookingForAJob === true ?
+                    <div>{props.profile.lookingForAJob ?
                         <img style={{width: '40px', height: '40px'}} src={lookingForAJob}/> :
                         <img style={{width: '40px', height: '40px'}} src={notLookingForAJob}/>}</div>
                     <div style={{margin: '5px'}}>{props.profile.lookingForAJobDescription}</div>

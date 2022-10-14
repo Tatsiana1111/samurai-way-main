@@ -12,7 +12,6 @@ export type InitialStateType = {
     posts: PostType[]
     newPostText: string
     profile: IMainUser | null
-    isAuth: boolean
 }
 
 export interface IMainUser {
@@ -45,7 +44,6 @@ const initialState: InitialStateType = {
     ],
     newPostText: 'SAMURAI',
     profile: null,
-    isAuth: false
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
@@ -59,7 +57,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             return {...state, posts: [...state.posts, newPost], newPostText: ''}
         }
         case UPDATE_NEW_POST_TEXT: {
-            return {...state, newPostText: action.newText}
+            return {...state, newPostText: action.newPostText}
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -78,8 +76,8 @@ export const getProfile = (userId: string) => {
 }
 
 type onChangePostActionCreatorType = ReturnType<typeof onChangePost>
-export const onChangePost = (newText: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: newText} as const
+export const onChangePost = (newPostText: string) => {
+    return {type: UPDATE_NEW_POST_TEXT, newPostText: newPostText} as const
 }
 type addPostActionCreatorType = ReturnType<typeof addPost>
 export const addPost = () => {

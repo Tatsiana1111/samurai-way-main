@@ -4,6 +4,7 @@ import {Header} from "./Header";
 import {getAuth} from "../../redux/authReducer";
 import {AppStoreType} from "../../redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 class HeaderContainer extends React.Component<PropsType> {
     componentDidMount() {
@@ -37,5 +38,7 @@ const mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     }
 }
 
-const withRouterProfileComponent = withRouter(HeaderContainer)
-export default connect(mapStateToProps, {getAuth})(withRouterProfileComponent)
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getAuth}),
+    withRouter
+)(HeaderContainer)

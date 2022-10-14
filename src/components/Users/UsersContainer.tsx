@@ -10,6 +10,7 @@ import {
 import {Users} from "./Users";
 import {Preloader} from "../common/Preloader/Preloader";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 type MapStatePropsType = InitialStateType
@@ -21,7 +22,7 @@ type MapDispatchPropsType = {
 }
 type UsersPropsType = MapStatePropsType & MapDispatchPropsType
 
-class UsersContainerComponent extends React.Component<UsersPropsType> {
+class UsersContainer extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
@@ -38,14 +39,8 @@ class UsersContainerComponent extends React.Component<UsersPropsType> {
                 {this.props.isFetching ?
                     <Preloader/> :
                     <Users
-                        unfollowUser={this.props.unfollowUser}
-                        followUser={this.props.followUser}
-                        users={this.props.users}
                         onPageChanged={this.onPageChanged}
-                        currentPage={this.props.currentPage}
-                        pageSize={this.props.pageSize}
-                        totalUsersCount={this.props.totalUsersCount}
-                        followingInProgress={this.props.followingInProgress}
+                        {...this.props}
                     />}
             </>);
         ;
@@ -63,9 +58,12 @@ const mapStateToProps = (state: AppStoreType): MapStatePropsType => {
     }
 }
 
-export const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
-    setPages,
-    getUsers,
-    unfollowUser,
-    followUser,
-})(UsersContainerComponent));
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        setPages,
+        getUsers,
+        unfollowUser,
+        followUser,
+    }),
+    withAuthRedirect
+)(UsersContainer)

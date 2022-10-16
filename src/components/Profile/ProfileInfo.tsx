@@ -3,6 +3,7 @@ import style from "./Profile.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
 import lookingForAJob from '../../assets/images/lookingForAJOB.png'
 import notLookingForAJob from '../../assets/images/notLookingForJob.svg'
+import {ProfileStatus} from "./ProfileStatus";
 
 
 export const ProfileInfo = (props: any) => {
@@ -12,7 +13,8 @@ export const ProfileInfo = (props: any) => {
     return (
         <div>
             <div>
-                <img alt='profileAvatar' src="https://html5css.ru/howto/img_snow.jpg"/>
+                {/*<img alt='profileAvatar' src="https://html5css.ru/howto/img_snow.jpg"/>*/}
+                <ProfileStatus status='Hi, this is my status, yo'/>
             </div>
             <div className={style.descriptionBlock}>
                 <div><img style={{margin: '10px'}} src={props.profile.photos.small}/></div>

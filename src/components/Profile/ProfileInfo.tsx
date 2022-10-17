@@ -4,8 +4,13 @@ import {Preloader} from "../common/Preloader/Preloader";
 import lookingForAJob from '../../assets/images/lookingForAJOB.png'
 import notLookingForAJob from '../../assets/images/notLookingForJob.svg'
 import {ProfileStatus} from "./ProfileStatus";
+import {IMainUser} from "../../redux/profileReducer";
 
-
+type ProfileInfoType = {
+    profile: IMainUser | null
+    status: string
+    updateStatus: (status: string) => void
+}
 export const ProfileInfo = (props: any) => {
     if (!props.profile) {
         return <Preloader/>
@@ -13,8 +18,7 @@ export const ProfileInfo = (props: any) => {
     return (
         <div>
             <div>
-                {/*<img alt='profileAvatar' src="https://html5css.ru/howto/img_snow.jpg"/>*/}
-                <ProfileStatus status='Hi, this is my status, yo'/>
+                <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
             </div>
             <div className={style.descriptionBlock}>
                 <div><img style={{margin: '10px'}} src={props.profile.photos.small}/></div>

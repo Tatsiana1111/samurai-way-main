@@ -2,9 +2,9 @@ import React from "react";
 import Profile from "./Profile";
 import {AppStoreType} from "../../redux/reduxStore";
 import {
-    addPost, getProfile,
+    addPost, getProfile, getStatus,
     InitialStateType,
-    onChangePost,
+    onChangePost, updateStatus,
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -19,6 +19,7 @@ class ProfileContainer extends React.Component<PropsType> {
             userId = '25313'
         }
         this.props.getProfile(userId)
+        this.props.getStatus(userId)
 
     }
 
@@ -40,6 +41,8 @@ type MapDispatchToPropsType = {
     onChangePost: (newText: string) => void
     addPost: () => void
     getProfile: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (status: string) => void
 }
 type MapStateToPropsType = InitialStateType
 let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
@@ -47,6 +50,7 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
         profile: state.profilePage.profile,
+        status: state.profilePage.status,
     }
 }
 
@@ -54,7 +58,9 @@ export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         onChangePost,
         addPost,
-        getProfile
+        getProfile,
+        getStatus,
+        updateStatus
     }),
     withRouter,
     withAuthRedirect

@@ -9,6 +9,8 @@ type MyPostsPropsType = {
     onChangePost: (text: string) => void
     addPost: () => void
     profile: any
+    status: string
+    updateStatus: (status: string) => void
 }
 
 const Profile = (props: MyPostsPropsType) => {
@@ -23,7 +25,7 @@ const Profile = (props: MyPostsPropsType) => {
 
     return (
         <>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <div className={style.postsBlock}><h3>My posts</h3>
                 <div>
                     <div><textarea

@@ -65,11 +65,3 @@ export default compose<React.ComponentType>(
     withAuthRedirect
 )(ProfileContainer)
 
-
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-// let withRouterProfileComponent = withRouter(AuthRedirectComponent)
-//  connect(mapStateToProps, {
-//     onChangePost,
-//     addPost,
-//     getProfile
-// })(withRouterProfileComponent)

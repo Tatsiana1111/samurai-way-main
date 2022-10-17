@@ -11,15 +11,13 @@ type ProfileInfoType = {
     status: string
     updateStatus: (status: string) => void
 }
-export const ProfileInfo = (props: any) => {
+export const ProfileInfo = (props: ProfileInfoType) => {
     if (!props.profile) {
         return <Preloader/>
     }
     return (
         <div>
-            <div>
-                <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
-            </div>
+
             <div className={style.descriptionBlock}>
                 <div><img style={{margin: '10px'}} src={props.profile.photos.small}/></div>
                 <div className={style.descriptionStatus}>
@@ -28,6 +26,9 @@ export const ProfileInfo = (props: any) => {
                         <img style={{width: '40px', height: '40px'}} src={lookingForAJob}/> :
                         <img style={{width: '40px', height: '40px'}} src={notLookingForAJob}/>}</div>
                     <div style={{margin: '5px'}}>{props.profile.lookingForAJobDescription}</div>
+                </div>
+                <div>
+                    <ProfileStatus updateStatus={props.updateStatus} status={props.status}/>
                 </div>
             </div>
         </div>

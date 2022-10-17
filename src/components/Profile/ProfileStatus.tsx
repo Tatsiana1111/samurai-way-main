@@ -29,18 +29,26 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         this.props.updateStatus(this.state.status)
     }
     onStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log('status changed')
         this.setState({
             status: event.currentTarget.value
         })
     }
 
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState: Readonly<ProfileStatusType>) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
+
         return (
             <div>
                 {!this.state.editMode && (
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.state.status || 'no status'}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.props.status || 'no status'}</span>
                     </div>
                 )}
                 {this.state.editMode && (

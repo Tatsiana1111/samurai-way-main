@@ -4,15 +4,17 @@ import Post from "./Post";
 import {store} from "../../redux/reduxStore";
 import {ProfileInfo} from "./ProfileInfo";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {IMainUser} from "../../redux/profileReducer";
+import {maxLengthCreator, minLength2, required} from "../../utils/validators/validators";
+import {Textarea} from "../common/FormsControls/FormsControls";
 
 interface IPost {
     post: string
 }
 
 type MyPostsPropsType = {
-    onChangePost: (text: string) => void
     addPost: (newPostText: string) => void
-    profile: any
+    profile: IMainUser | null
     status: string
     updateStatus: (status: string) => void
 }
@@ -43,11 +45,12 @@ const Profile = (props: MyPostsPropsType) => {
 
     );
 };
+const maxLength30 = maxLengthCreator(30)
 const AddPostForm: React.FC<InjectedFormProps<IPost>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} action="">
-            <Field component={'textarea'} name={'newPostText'}
-                   placeholder={'Enter your post...'}/>
+            <Field component={Textarea} name={'newPostText'}
+                   placeholder={'Enter your post...'} validate={[required, maxLength30, minLength2]}/>
             <div>
                 <button>Add post</button>
             </div>

@@ -4,14 +4,13 @@ import {profileAPI} from "../api/api";
 
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const SET_STATUS = 'SET_STATUS'
-type ActionType = onChangePostActionCreatorType | addPostActionCreatorType | setUserProfileType | setUserStatusType
+
+type ActionType = addPostActionCreatorType | setUserProfileType | setUserStatusType
 
 export type InitialStateType = {
     posts: PostType[]
-    newPostText: string
     profile: IMainUser | null
     status: string
 }
@@ -38,13 +37,12 @@ export interface IMainUser {
     }
 }
 
-const initialState: InitialStateType = {
+const initialState = {
     posts: [
         {message: 'This is my first post!1!!1!', likeCount: 14, id: 1},
         {message: 'Hello, welcome to Social Network', likeCount: 28, id: 2},
         {message: 'TypeScript is very difficult', likeCount: 4, id: 3},
     ],
-    newPostText: 'SAMURAI',
     profile: null,
     status: '',
 }
@@ -53,14 +51,11 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     switch (action.type) {
         case ADD_POST: {
             const newPost: PostType = {
-                message: state.newPostText,
+                message: action.newPostText,
                 likeCount: 0,
                 id: 5
             }
-            return {...state, posts: [...state.posts, newPost], newPostText: ''}
-        }
-        case UPDATE_NEW_POST_TEXT: {
-            return {...state, newPostText: action.newPostText}
+            return {...state, posts: [...state.posts, newPost]}
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -99,13 +94,10 @@ export const updateStatus = (status: string) => {
     }
 }
 
-type onChangePostActionCreatorType = ReturnType<typeof onChangePost>
-export const onChangePost = (newPostText: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newPostText: newPostText} as const
-}
+
 type addPostActionCreatorType = ReturnType<typeof addPost>
-export const addPost = () => {
-    return {type: ADD_POST} as const
+export const addPost = (newPostText: string) => {
+    return {type: ADD_POST, newPostText: newPostText} as const
 }
 type setUserProfileType = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: IMainUser) => {

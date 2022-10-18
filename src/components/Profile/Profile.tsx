@@ -1,13 +1,17 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import style from './Profile.module.css'
 import Post from "./Post";
 import {store} from "../../redux/reduxStore";
 import {ProfileInfo} from "./ProfileInfo";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
+interface IPost {
+    post: string
+}
 
 type MyPostsPropsType = {
     onChangePost: (text: string) => void
-    addPost: () => void
+    addPost: (newPostText: string) => void
     profile: any
     status: string
     updateStatus: (status: string) => void
@@ -16,11 +20,8 @@ type MyPostsPropsType = {
 const Profile = (props: MyPostsPropsType) => {
     let state = store.getState()
 
-    const addPost = () => {
-        props.addPost()
-    }
-    const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.onChangePost(e.currentTarget.value)
+    const addNewPost = (value: any) => {
+        props.addPost(value.newPostText)
     }
 
     return (
@@ -28,13 +29,8 @@ const Profile = (props: MyPostsPropsType) => {
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <div className={style.postsBlock}><h3>My posts</h3>
                 <div>
-                    <div><textarea
-                        onChange={onChangePostHandler}
-                        value={state.profilePage.newPostText}
-                    />
-                    </div>
                     <div>
-                        <button onClick={addPost}>Add post</button>
+                        <AddPostFormRedux onSubmit={addNewPost}/>
                     </div>
                 </div>
                 <div className={style.posts}>
@@ -47,5 +43,18 @@ const Profile = (props: MyPostsPropsType) => {
 
     );
 };
+const AddPostForm: React.FC<InjectedFormProps<IPost>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} action="">
+            <Field component={'textarea'} name={'newPostText'}
+                   placeholder={'Enter your post...'}/>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>)
+}
+const AddPostFormRedux = reduxForm<IPost>({
+    form: 'profileAddPostForm'
+})(AddPostForm)
 
 export default Profile;

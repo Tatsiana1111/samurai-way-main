@@ -3,8 +3,7 @@ import Profile from "./Profile";
 import {AppStoreType} from "../../redux/reduxStore";
 import {
     addPost, getProfile, getStatus,
-    InitialStateType,
-    onChangePost, updateStatus,
+    InitialStateType, updateStatus,
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -47,7 +46,6 @@ type MapStateToPropsType = InitialStateType
 let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText,
         profile: state.profilePage.profile,
         status: state.profilePage.status,
     }
@@ -55,7 +53,6 @@ let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
-        onChangePost,
         addPost,
         getProfile,
         getStatus,

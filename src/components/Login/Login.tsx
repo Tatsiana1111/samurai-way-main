@@ -1,8 +1,8 @@
 import React from 'react';
-import LoginReduxForm from "./LoginForm";
+import LoginReduxForm, {IFormData} from "./LoginForm";
 
 export const Login = () => {
-    const onSubmit = (formData: any) => {
+    const onSubmit = (formData: IFormData) => {
         console.log(formData)
     }
     return (

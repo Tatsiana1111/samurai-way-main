@@ -8,9 +8,9 @@ export type DialogsItemType = {
 }
 
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const UPDATE_MESSAGE_TEXT = 'UPDATE-MESSAGE-TEXT'
 
-type ActionType = addMessageActionCreatorType | onChangeMessageActionCreatorType
+
+type ActionType = addMessageActionCreatorType
 type InitialStateType = typeof initialState
 
 const initialState = {
@@ -30,35 +30,23 @@ const initialState = {
         {message: 'Okay, thanks', id: 5},
         {message: 'Very well!', id: 5},
     ] as Array<MessageType>,
-    newMessageText: '',
 }
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
         case ADD_MESSAGE: {
             const newMessage: MessageType = {
-                message: state.newMessageText,
+                message: action.newMessageText,
                 id: 5
             }
-            // let stateCopy = {...state}
-            // stateCopy.messages = [...state.messages]
-            // stateCopy.messages.push(newMessage)
-            // stateCopy.newMessageText = ''
-            return {...state, messages: [...state.messages, newMessage], newMessageText: ''}
+
+            return {...state, messages: [...state.messages, newMessage]}
         }
-        case UPDATE_MESSAGE_TEXT: {
-            // let stateCopy = {...state}
-            // stateCopy.newMessageText = action.messageText
-            return {...state, newMessageText: action.messageText}
-        }
+
     }
     return state
 }
 type addMessageActionCreatorType = ReturnType<typeof addMessageActionCreator>
-export const addMessageActionCreator = () => {
-    return {type: ADD_MESSAGE} as const
-}
-type onChangeMessageActionCreatorType = ReturnType<typeof onChangeMessageActionCreator>
-export const onChangeMessageActionCreator = (messageText: string) => {
-    return {type: UPDATE_MESSAGE_TEXT, messageText: messageText} as const
+export const addMessageActionCreator = (newMessageText: string) => {
+    return {type: ADD_MESSAGE, newMessageText: newMessageText} as const
 }

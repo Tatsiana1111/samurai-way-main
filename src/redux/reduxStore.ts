@@ -28,7 +28,6 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: Array<DialogsItemType>
     messages: Array<MessageType>
-    newMessageText: string
 }
 
 let rootReducers = combineReducers({

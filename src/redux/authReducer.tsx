@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {authAPI, usersAPI} from "../api/api";
 
 
 const SET_USER_DATA = 'SET_USER_DATA'
@@ -27,8 +27,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
             }
 
         default:
@@ -42,14 +41,35 @@ export const getAuth = () => {
             .then(data => {
                 if (data.resultCode === 0) {
                     let {email, login, id} = data.data
-                    dispatch(setAuthUserData(email, login, id))
+                    dispatch(setAuthUserData(email, login, id, true))
+                }
+            })
+    }
+}
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                if (data.data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(getAuth())
+                }
+            })
+    }
+}
+export const logOut = () => {
+    return (dispatch: Dispatch) => {
+        authAPI.logOut()
+            .then(data => {
+                if (data.data.resultCode === 0) {
+                    dispatch(setAuthUserData(null, null, null, false))
                 }
             })
     }
 }
 
 type setAuthUserDataType = ReturnType<typeof setAuthUserData>
-export const setAuthUserData = (email: string, login: string, id: string) => {
-    return {type: SET_USER_DATA, data: {email, login, id}} as const
+export const setAuthUserData = (email: string | null, login: string | null, id: string | null, isAuth: boolean) => {
+    return {type: SET_USER_DATA, payload: {email, login, id, isAuth}} as const
 }
 

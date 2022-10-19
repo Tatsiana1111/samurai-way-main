@@ -1,4 +1,5 @@
 import React from 'react';
+import style from '../common/FormsControls/FormsControls.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
@@ -12,11 +13,20 @@ export interface IFormData {
 const LoginForm: React.FC<InjectedFormProps<IFormData>> = (props: any) => {
     return (
         <form action="" onSubmit={props.handleSubmit}>
-            <div><Field type="text" placeholder={'email'} name={'email'} component={Input} validate={[required]}/></div>
-            <div><Field type="password" placeholder={'password'} name={'password'} component={Input}
-                        validate={[required]}/>
+            <div>
+                <Field type="text" placeholder={'email'} name={'email'} component={Input} validate={[required]}/>
             </div>
-            <div><Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me</div>
+            <div>
+                <Field type="password" placeholder={'password'} name={'password'} component={Input}
+                       validate={[required]}/>
+            </div>
+            <div>
+                <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me
+            </div>
+            {props.error &&
+                <div className={style.formSummaryError}>
+                    {props.error}
+                </div>}
             <div>
                 <button>Login</button>
             </div>

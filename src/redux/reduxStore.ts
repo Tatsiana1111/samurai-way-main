@@ -6,6 +6,7 @@ import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
+import appReducer from "./appReducer";
 
 export type RootStateType = ReturnType<typeof rootReducers>
 export type PostType = {
@@ -36,6 +37,7 @@ let rootReducers = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     form: formReducer,
+    app: appReducer
 })
 
 export type AppStoreType = ReturnType<typeof rootReducers>

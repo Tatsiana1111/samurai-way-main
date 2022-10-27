@@ -92,7 +92,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
     }
 }
 
-export const getUsers = (currentPage: number, pageSize: number) => {
+export const requestUsers = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setIsFetching(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {

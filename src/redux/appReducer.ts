@@ -43,6 +43,3 @@ export const setInitialized = () => {
 
 export default appReducer
 
-function dispatch(arg0: (dispatch: Dispatch<import("redux").AnyAction>) => Promise<void>): Promise<any> {
-    throw new Error("Function not implemented.");
-}

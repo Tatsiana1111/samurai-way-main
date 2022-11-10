@@ -14,9 +14,11 @@ export const Header = (props: Props) => {
             <img alt='logo'
                  src="https://upload.wikimedia.org/wikipedia/commons/1/1f/The_IMG_Media_broadcasting_company_logo.png"/>
             <div className={style.loginBlock}>
-                {props.isAuth ? <div>{props.login}
-                    <button onClick={props.logOut} style={{margin: '10px'}}>Log Out</button>
-                </div> : <NavLink to={'/login'}>Login</NavLink>}
+                {props.isAuth
+                    ? <div>{props.login}
+                        <button onClick={props.logOut} style={{margin: '10px'}}>Log Out</button>
+                    </div>
+                    : <NavLink to={'/login'}>Login</NavLink>}
 
             </div>
         </header>

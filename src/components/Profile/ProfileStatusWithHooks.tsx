@@ -1,0 +1,40 @@
+import React, {ChangeEvent, useCallback, useState} from 'react';
+
+type StateType = {
+    editMode: boolean
+    status: string
+}
+export type ProfileStatusType = {
+    status: string
+    updateStatus: (status: string) => void
+}
+
+export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
+    const [editMode, setEditMode] = useState(false)
+    const [status, setStatus] = useState(props.status)
+
+    const activateEditMode = () => {
+        setEditMode(true)
+    }
+    const deactivateEditMode = () => {
+        setEditMode(false)
+        props.updateStatus(status)
+    }
+    const onStatusChange = (event: ChangeEvent<HTMLInputElement>) => {
+        return setStatus(event.currentTarget.value)
+    }
+
+    return (
+        <div>
+            {!editMode && <div>
+                <span onDoubleClick={activateEditMode}>{props.status || 'no status'}</span>
+            </div>
+            }
+            {editMode && (
+                <div>
+                    <input value={status} onChange={onStatusChange} autoFocus={true} onBlur={deactivateEditMode}/>
+                </div>
+            )}
+        </div>
+    );
+}

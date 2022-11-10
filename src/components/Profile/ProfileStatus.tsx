@@ -1,5 +1,4 @@
 import React, {ChangeEvent} from 'react';
-import style from './Profile.module.css';
 
 type StateType = {
     editMode: boolean

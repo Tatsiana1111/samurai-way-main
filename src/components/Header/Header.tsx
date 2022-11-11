@@ -19,7 +19,6 @@ export const Header = (props: Props) => {
                         <button onClick={props.logOut} style={{margin: '10px'}}>Log Out</button>
                     </div>
                     : <NavLink to={'/login'}>Login</NavLink>}
-
             </div>
         </header>
     );

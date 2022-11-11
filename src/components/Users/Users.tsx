@@ -21,9 +21,12 @@ export const Users = (props: UsersPropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+    // const offset = props.pageSize * (props.currentPage - 1);
+    // const slicePages = pages.slice(offset, props.pageSize + props.currentPage);
+    // const slicePages = pages.slice((props.currentPage - 1) * props.pageSize, props.currentPage * props.pageSize)
+
     return (
         <div>
-
             <div>
                 {pages.map(page => {
                     return <span className={props.currentPage === page ? style.selected : ''}
@@ -49,17 +52,12 @@ export const Users = (props: UsersPropsType) => {
                                         onClick={() => {
                                             props.followUser(user.id)
                                         }}>FOLLOW</button>}
-
                         </div>
                     </div>
                     <div className={style.divStatus}>
                         <div>
-                            <div>{user.name}</div>
-                            <div>{user.status}</div>
-                        </div>
-                        <div>
-                            <div>{"user.location.city"}</div>
-                            <div>{"user.location.country"}</div>
+                            <div className={style.userName}>{user.name}</div>
+                            <div className={style.userStatus}>{user.status}</div>
                         </div>
                     </div>
                 </div>

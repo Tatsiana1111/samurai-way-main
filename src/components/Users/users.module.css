@@ -39,3 +39,16 @@
     margin: 10px;
     font-weight: bold;
 }
+
+.userName {
+    font-family: Calibri, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-weight: bold;
+    font-size: large;
+}
+
+.userStatus {
+    font-family: Calibri, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-weight: normal;
+    font-size: medium;
+    font-style: oblique;
+}

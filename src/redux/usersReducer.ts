@@ -97,14 +97,11 @@ export const requestUsers = (currentPage: number, pageSize: number) => {
         dispatch(setIsFetching(true))
         usersAPI.getUsers(currentPage, pageSize).then(data => {
             dispatch(setIsFetching(false))
-            dispatch(setUsers(
-                data.items
-            ))
-            dispatch(setTotalUsersCount(
-                data.totalCount
-            ))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
         })
     }
+
 }
 export const followUser = (userID: number) => {
     return (dispatch: Dispatch) => {

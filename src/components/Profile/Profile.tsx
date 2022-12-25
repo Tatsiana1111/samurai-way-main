@@ -31,9 +31,7 @@ const Profile = (props: MyPostsPropsType) => {
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <div className={style.postsBlock}><h3>My posts</h3>
                 <div>
-                    <div>
-                        <AddPostFormRedux onSubmit={addNewPost}/>
-                    </div>
+                    <AddPostFormRedux onSubmit={addNewPost}/>
                 </div>
                 <div className={style.posts}>
                     {state.profilePage.posts.map(post => <Post {...props} key={post.id} message={post.message}

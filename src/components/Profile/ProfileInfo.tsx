@@ -3,7 +3,6 @@ import style from "./Profile.module.css";
 import {Preloader} from "../common/Preloader/Preloader";
 import lookingForAJob from '../../assets/images/lookingForAJOB.png'
 import notLookingForAJob from '../../assets/images/notLookingForJob.svg'
-import {ProfileStatus} from "./ProfileStatus";
 import {IMainUser} from "../../redux/profileReducer";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 

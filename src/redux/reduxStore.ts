@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 
 import {profileReducer} from "./profileReducer";
 import {dialogsReducer} from "./dialogsReducer";
@@ -28,6 +28,7 @@ export type DialogsPageType = {
     messages: Array<MessageType>
 }
 
+
 let rootReducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
@@ -39,7 +40,9 @@ let rootReducers = combineReducers({
 
 export type AppStoreType = ReturnType<typeof rootReducers>
 
-export const store = createStore(rootReducers, applyMiddleware(thunkMiddleware))
+// @ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(rootReducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 // @ts-ignore
 window.store = store

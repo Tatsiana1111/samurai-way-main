@@ -1,20 +1,14 @@
 import {Dispatch} from "redux";
 import {getAuth} from "./authReducer";
 
-type InitialStateType = {
-    initialized: boolean
-}
-type AppActionType = setInitializedType
-type setInitializedType = ReturnType<typeof setInitialized>
 
-const SET_INITIALIZED = 'SET_INITIALIZED'
-const initialState: InitialStateType = {
+const initialState = {
     initialized: false
 }
 
-const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionType): InitialStateType => {
     switch (action.type) {
-        case SET_INITIALIZED:
+        case 'app/SET_INITIALIZED':
             return {
                 ...state,
                 initialized: true,
@@ -25,21 +19,22 @@ const appReducer = (state: InitialStateType = initialState, action: AppActionTyp
     }
 }
 
+
+//thunk
 export const initializeApp = () => {
-    return (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         // @ts-ignore
-        let promise = dispatch(getAuth())
-        promise.then(() => {
-            dispatch(setInitialized())
-        })
-
-
+        let promise = await dispatch(getAuth())
+        dispatch(setInitialized())
     }
 }
 
+//actions
 export const setInitialized = () => {
-    return {type: SET_INITIALIZED} as const
+    return {type: 'app/SET_INITIALIZED'} as const
 }
 
-export default appReducer
-
+//types
+type InitialStateType = typeof initialState
+type AppActionType = setInitializedType
+type setInitializedType = ReturnType<typeof setInitialized>

@@ -35,10 +35,6 @@
     align-items: center;
 }
 
-.selected {
-    margin: 10px;
-    font-weight: bold;
-}
 
 .userName {
     font-family: Calibri, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;

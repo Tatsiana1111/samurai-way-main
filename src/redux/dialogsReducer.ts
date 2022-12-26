@@ -1,18 +1,3 @@
-export type MessageType = {
-    message: string
-    id: number
-}
-export type DialogsItemType = {
-    name: string
-    id: number
-}
-
-const ADD_MESSAGE = 'ADD-MESSAGE'
-
-
-type ActionType = addMessageActionCreatorType
-type InitialStateType = typeof initialState
-
 const initialState = {
     dialogs: [
         {name: 'Tanya', id: 1},
@@ -34,19 +19,33 @@ const initialState = {
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
     switch (action.type) {
-        case ADD_MESSAGE: {
+        case 'dialogs/ADD_MESSAGE': {
             const newMessage: MessageType = {
                 message: action.newMessageText,
                 id: 5
             }
-
             return {...state, messages: [...state.messages, newMessage]}
         }
 
     }
     return state
 }
-type addMessageActionCreatorType = ReturnType<typeof addMessageActionCreator>
+
+//actions
 export const addMessageActionCreator = (newMessageText: string) => {
-    return {type: ADD_MESSAGE, newMessageText: newMessageText} as const
+    return {type: 'dialogs/ADD_MESSAGE', newMessageText: newMessageText} as const
 }
+
+//types
+export type MessageType = {
+    message: string
+    id: number
+}
+export type DialogsItemType = {
+    name: string
+    id: number
+}
+type ActionType = addMessageActionCreatorType
+type InitialStateType = typeof initialState
+type addMessageActionCreatorType = ReturnType<typeof addMessageActionCreator>
+

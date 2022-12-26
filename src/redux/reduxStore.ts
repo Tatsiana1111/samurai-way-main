@@ -6,7 +6,8 @@ import {usersReducer} from "./usersReducer";
 import {authReducer} from "./authReducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
-import appReducer from "./appReducer";
+import {appReducer} from "./appReducer";
+
 
 export type RootStateType = ReturnType<typeof rootReducers>
 export type PostType = {
@@ -21,10 +22,6 @@ type MessageType = {
 type DialogsItemType = {
     name: string
     id: number
-}
-export type ProfilePageType = {
-    posts: Array<PostType>
-    newPostText: string
 }
 export type DialogsPageType = {
     dialogs: Array<DialogsItemType>

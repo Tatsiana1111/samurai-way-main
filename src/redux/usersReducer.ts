@@ -6,7 +6,7 @@ import {updateObjectInArray} from "../utils/object-helper";
 const initialState = {
     users: [] as UserType[],
     pageSize: 10,
-    totalUsersCount: 0,
+    totalItemsCount: 0,
     currentPage: 1,
     isFetching: false,
     followingInProgress: [] as Array<number>
@@ -28,7 +28,7 @@ export const usersReducer = (state: InitialStateType = initialState, action: Use
         case 'users/SET_CURRENT_PAGE':
             return {...state, currentPage: action.currentPage}
         case 'users/SET_TOTAL_USERS_COUNT':
-            return {...state, totalUsersCount: action.totalUsersCount}
+            return {...state, totalItemsCount: action.totalItemsCount}
         case 'users/TOGGLE_IS_FETCHING':
             return {...state, isFetching: action.isFetching}
         case 'users/TOGGLE_IS_FOLLOWING_PROGRESS':
@@ -90,8 +90,8 @@ export const setUsers = (users: UserType[]) => {
 export const setPages = (currentPage: number) => {
     return {type: 'users/SET_CURRENT_PAGE', currentPage} as const
 }
-export const setTotalUsersCount = (totalUsersCount: number) => {
-    return {type: 'users/SET_TOTAL_USERS_COUNT', totalUsersCount} as const
+export const setTotalUsersCount = (totalItemsCount: number) => {
+    return {type: 'users/SET_TOTAL_USERS_COUNT', totalItemsCount: totalItemsCount} as const
 }
 export const setIsFetching = (isFetching: boolean) => {
     return {type: 'users/TOGGLE_IS_FETCHING', isFetching} as const

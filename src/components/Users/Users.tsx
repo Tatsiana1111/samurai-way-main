@@ -5,10 +5,10 @@ import {User} from "./User/User";
 
 
 type UsersPropsType = {
-    totalUsersCount: number
+    totalItemsCount: number
     pageSize: number
     currentPage: number
-    onPageChanged: (pageNumber: number) => void
+    onPageChanged: (page: number) => void
     users: UserType[]
     followingInProgress: Array<number>
     unfollowUser: (userID: number) => void
@@ -17,7 +17,7 @@ type UsersPropsType = {
 export const Users = (props: UsersPropsType) => {
     return (
         <div>
-            <Pagination totalUsersCount={props.totalUsersCount} pageSize={props.pageSize}
+            <Pagination sectionSize={10} totalItemsCount={props.totalItemsCount} pageSize={props.pageSize}
                         currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
             {props.users.map(user => {
                 return <User key={user.id} user={user} followingInProgress={props.followingInProgress}

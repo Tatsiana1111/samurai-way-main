@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/samurai-way-main/static/css/main.2d9520b2.css",
+    "main.js": "/samurai-way-main/static/js/main.526d7aee.js",
+    "static/media/lookingForAJOB.png": "/samurai-way-main/static/media/lookingForAJOB.68c1263cba672a7b17dc.png",
+    "static/media/userIcon.png": "/samurai-way-main/static/media/userIcon.f414aa60de28987c2111.png",
+    "static/media/notLookingForJob.svg": "/samurai-way-main/static/media/notLookingForJob.e612a58b45052623cb1229c63991d4c1.svg",
+    "static/media/loader.svg": "/samurai-way-main/static/media/loader.05cb4735b3c515ff6f21cfae392cf32b.svg",
+    "index.html": "/samurai-way-main/index.html",
+    "main.2d9520b2.css.map": "/samurai-way-main/static/css/main.2d9520b2.css.map",
+    "main.526d7aee.js.map": "/samurai-way-main/static/js/main.526d7aee.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d9520b2.css",
+    "static/js/main.526d7aee.js"
+  ]
+}

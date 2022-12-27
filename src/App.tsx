@@ -27,25 +27,23 @@ class App extends React.Component<PropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
-                <div className="app-wrapper">
-                    <HeaderContainer/>
-                    <Navbar/>
-                    <div className="app-wrapper-content">
-                        <Route path='/dialogs'
-                               render={() => <DialogsContainer/>}/>
-                        <Route path='/profile/:userId?'
-                               render={() => <ProfileContainer/>}/>
-                        <Route path='/users'
-                               render={() => <UsersContainer/>}/>
-                        <Route path='/login'
-                               render={() => <Login/>}/>
-                        <Route path='/news' component={News}/>
-                        <Route path='/music' component={Music}/>
-                        <Route path='/settings' component={Settings}/>
-                    </div>
+            <div className="app-wrapper">
+                <HeaderContainer/>
+                <Navbar/>
+                <div className="app-wrapper-content">
+                    <Route path='/dialogs'
+                           render={() => <DialogsContainer/>}/>
+                    <Route path='/profile/:userId?'
+                           render={() => <ProfileContainer/>}/>
+                    <Route path='/users'
+                           render={() => <UsersContainer/>}/>
+                    <Route path='/login'
+                           render={() => <Login/>}/>
+                    <Route path='/news' component={News}/>
+                    <Route path='/music' component={Music}/>
+                    <Route path='/settings' component={Settings}/>
                 </div>
-            </BrowserRouter>
+            </div>
         );
     }
 }

@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {AppStoreType} from "../../redux/reduxStore";
 import {
     addPost, getProfile, getStatus,
-    InitialStateType, updateStatus,
+    InitialStateType, savePhoto, updateStatus,
 } from "../../redux/profileReducer";
 import {connect} from "react-redux";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -12,7 +12,7 @@ import {compose} from "redux";
 
 
 class ProfileContainer extends React.Component<PropsType> {
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
             userId = this.props.authorisedUserId as string
@@ -21,9 +21,20 @@ class ProfileContainer extends React.Component<PropsType> {
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return (
             <Profile
+                isOwner={!this.props.match.params.userId}
                 {...this.props}
             />
         );
@@ -40,6 +51,7 @@ type MapDispatchToPropsType = {
     getProfile: (userId: string) => void
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
+    savePhoto: (photos: any) => void
 }
 type MapStateToPropsType = InitialStateType & { authorisedUserId: string | null, isAuth: boolean }
 let mapStateToProps = (state: AppStoreType): MapStateToPropsType => {
@@ -57,7 +69,8 @@ export default compose<React.ComponentType>(
         addPost,
         getProfile,
         getStatus,
-        updateStatus
+        updateStatus,
+        savePhoto
     }),
     withRouter,
     withAuthRedirect

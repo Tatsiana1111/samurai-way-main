@@ -17,6 +17,8 @@ type MyPostsPropsType = {
     profile: IMainUser | null
     status: string
     updateStatus: (status: string) => void
+    isOwner: boolean
+    savePhoto: (photos: any) => void
 }
 
 const Profile = (props: MyPostsPropsType) => {
@@ -28,7 +30,9 @@ const Profile = (props: MyPostsPropsType) => {
 
     return (
         <>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
             <div className={style.postsBlock}><h3>My posts</h3>
                 <div>
                     <AddPostFormRedux onSubmit={addNewPost}/>

@@ -58,6 +58,16 @@ export const profileAPI = {
                 return response.data
             })
     },
+    savePhoto(photos: any) {
+        const formData = new FormData()
+        formData.append('Image', photos)
+        return instance.put(`profile/photo`, formData, {
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+            .then(response => {
+                return response.data
+            })
+    },
 }
 
 export const authAPI = {

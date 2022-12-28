@@ -9,7 +9,7 @@ const initialState = {
         {message: 'Hello, welcome to Social Network', likeCount: 28, id: 2},
         {message: 'TypeScript is very difficult', likeCount: 4, id: 3},
     ],
-    profile: null,
+    profile: null as IMainUser | null,
     status: '',
 }
 
@@ -31,6 +31,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         }
         case 'profile/DELETE_POST': {
             return {...state, posts: [...state.posts.filter(p => p.id !== action.id)]}
+        }
+        case 'profile/SAVE_PHOTO_SUCCESS': {
+            return {...state, profile: {...state.profile, photos: action.photos}}
         }
     }
     return state
@@ -60,6 +63,15 @@ export const updateStatus = (status: string) => {
         }
     }
 }
+export const savePhoto = (photos: any) => {
+    return async (dispatch: Dispatch) => {
+        const res = await profileAPI.savePhoto(photos)
+
+        if (res.resultCode === 0) {
+            dispatch(savePhotoSuccess(res.data.photos))
+        }
+    }
+}
 
 
 //actions
@@ -75,6 +87,9 @@ export const setUserProfile = (profile: IMainUser) => {
 export const setStatus = (status: string) => {
     return {type: 'profile/SET_STATUS', status} as const
 }
+export const savePhotoSuccess = (photos: any) => {
+    return {type: 'profile/SAVE_PHOTO_SUCCESS', photos} as const
+}
 
 //types
 type ActionType =
@@ -82,6 +97,7 @@ type ActionType =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
+    | ReturnType<typeof savePhotoSuccess>
 export type InitialStateType = {
     posts: PostType[]
     profile: IMainUser | null
@@ -89,12 +105,12 @@ export type InitialStateType = {
 }
 
 export interface IMainUser {
-    aboutMe: string
-    userId: number
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
+    aboutMe?: string
+    userId?: number
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    contacts?: {
         github: string
         vk: string
         facebook: string
@@ -104,7 +120,7 @@ export interface IMainUser {
         youtube: string
         mainLink: string
     }
-    photos: {
+    photos?: {
         small: string
         large: string
     }

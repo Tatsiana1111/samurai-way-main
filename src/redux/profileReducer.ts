@@ -72,6 +72,15 @@ export const savePhoto = (photos: any) => {
         }
     }
 }
+export const saveProfile = (data: any) => {
+    return async (dispatch: Dispatch) => {
+        const res = await profileAPI.savePhoto(data)
+
+        if (res.resultCode === 0) {
+            dispatch(savePhotoSuccess(res.data.photos))
+        }
+    }
+}
 
 
 //actions
@@ -89,6 +98,9 @@ export const setStatus = (status: string) => {
 }
 export const savePhotoSuccess = (photos: any) => {
     return {type: 'profile/SAVE_PHOTO_SUCCESS', photos} as const
+}
+export const saveProfileDataSuccess = (data: any) => {
+    return {type: 'profile/SAVE_PROFILE_DATA_SUCCESS', data} as const
 }
 
 //types

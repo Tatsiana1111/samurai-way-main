@@ -19,6 +19,7 @@ type MyPostsPropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     savePhoto: (photos: any) => void
+    saveProfile: (data: any) => void
 }
 
 const Profile = (props: MyPostsPropsType) => {
@@ -30,7 +31,8 @@ const Profile = (props: MyPostsPropsType) => {
 
     return (
         <>
-            <ProfileInfo savePhoto={props.savePhoto} isOwner={props.isOwner} profile={props.profile}
+            <ProfileInfo saveProfile={props.saveProfile} savePhoto={props.savePhoto} isOwner={props.isOwner}
+                         profile={props.profile}
                          status={props.status}
                          updateStatus={props.updateStatus}/>
             <div className={style.postsBlock}><h3>My posts</h3>

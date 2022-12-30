@@ -1,4 +1,4 @@
-import {PostType} from "./reduxStore";
+import {AppStoreType, PostType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 
@@ -73,11 +73,12 @@ export const savePhoto = (photos: any) => {
     }
 }
 export const saveProfile = (data: any) => {
-    return async (dispatch: Dispatch) => {
-        const res = await profileAPI.savePhoto(data)
+    return async (dispatch: Dispatch, getState: () => AppStoreType) => {
+        const userId = getState().auth.id
+        const res = await profileAPI.saveProfile(data)
 
-        if (res.resultCode === 0) {
-            dispatch(savePhotoSuccess(res.data.photos))
+        if (res.data.resultCode === 0) {
+            dispatch(getProfile(userId))
         }
     }
 }
@@ -99,9 +100,7 @@ export const setStatus = (status: string) => {
 export const savePhotoSuccess = (photos: any) => {
     return {type: 'profile/SAVE_PHOTO_SUCCESS', photos} as const
 }
-export const saveProfileDataSuccess = (data: any) => {
-    return {type: 'profile/SAVE_PROFILE_DATA_SUCCESS', data} as const
-}
+
 
 //types
 type ActionType =

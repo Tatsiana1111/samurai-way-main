@@ -2,8 +2,6 @@ import React from 'react';
 import {IMainUser} from "../../../redux/profileReducer";
 import style from "../ProfileData/ProfileData.module.css";
 import lookingForAJob from "../../../assets/images/lookingForAJOB.png";
-import notLookingForAJob from "../../../assets/images/notLookingForJob.svg";
-import {Contacts} from "../Contacts/Contacts";
 import {createField, Input, Textarea} from "../../common/FormsControls/FormsControls";
 import {reduxForm} from "redux-form";
 

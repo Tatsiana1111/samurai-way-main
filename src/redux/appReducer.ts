@@ -36,5 +36,5 @@ export const setInitialized = () => {
 
 //types
 type InitialStateType = typeof initialState
-type AppActionType = setInitializedType
+export type AppActionType = setInitializedType
 type setInitializedType = ReturnType<typeof setInitialized>

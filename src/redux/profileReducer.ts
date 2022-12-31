@@ -1,6 +1,7 @@
 import {AppStoreType, PostType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 
 const initialState = {
@@ -13,7 +14,7 @@ const initialState = {
     status: '',
 }
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionsType): InitialStateType => {
     switch (action.type) {
         case 'profile/ADD_POST': {
             const newPost: PostType = {
@@ -40,7 +41,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 //thunks
-export const getProfile = (userId: string) => {
+export const getProfile = (userId: string | null) => {
     return async (dispatch: Dispatch) => {
         const res = await profileAPI.getProfile(userId)
 
@@ -73,12 +74,14 @@ export const savePhoto = (photos: any) => {
     }
 }
 export const saveProfile = (data: any) => {
-    return async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    return async (dispatch: Dispatch<any>, getState: () => AppStoreType) => {
         const userId = getState().auth.id
         const res = await profileAPI.saveProfile(data)
-
-        if (res.data.resultCode === 0) {
+        if (res.resultCode === 0) {
             dispatch(getProfile(userId))
+        } else {
+            dispatch(stopSubmit('profileEdit', {_error: res.messages[0]}))
+            return Promise.reject(res.messages[0])
         }
     }
 }
@@ -103,12 +106,13 @@ export const savePhotoSuccess = (photos: any) => {
 
 
 //types
-type ActionType =
+export type ProfileActionsType =
     ReturnType<typeof addPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
     | ReturnType<typeof deletePost>
     | ReturnType<typeof savePhotoSuccess>
+
 export type InitialStateType = {
     posts: PostType[]
     profile: IMainUser | null

@@ -1,28 +1,31 @@
 import React from 'react';
 import style from '../common/FormsControls/FormsControls.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {createField, Input} from "../common/FormsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
 
 export interface IFormData {
     email: string
     password: string
     rememberMe: boolean
+    captchaURL: null | string
+    captcha: null | string
 }
 
 const LoginForm: React.FC<InjectedFormProps<IFormData>> = (props: any) => {
     return (
         <form action="" onSubmit={props.handleSubmit}>
             <div>
-                <Field type="text" placeholder={'email'} name={'email'} component={Input} validate={[required]}/>
+                {createField('Email', 'email', [required], Input)}
             </div>
             <div>
-                <Field type="password" placeholder={'password'} name={'password'} component={Input}
-                       validate={[required]}/>
+                {createField('password', 'password', [required], Input, {type: "password"})}
             </div>
             <div>
-                <Field type="checkbox" name={'rememberMe'} component={Input}/>Remember me
+                {createField(null, 'rememberMe', [], Input, {type: "checkbox"}, 'Remember me')}
             </div>
+            {props.captchaURL && <img src={props.captchaURL} alt="captcha"/>}
+            {props.captchaURL && createField('Symbols from image', 'captcha', [required], Input)}
             {props.error &&
                 <div className={style.formSummaryError}>
                     {props.error}
@@ -33,5 +36,5 @@ const LoginForm: React.FC<InjectedFormProps<IFormData>> = (props: any) => {
         </form>
     );
 };
-let LoginReduxForm = reduxForm<IFormData>({form: 'login'})(LoginForm)
+let LoginReduxForm = reduxForm<any, any>({form: 'login'})(LoginForm)
 export default LoginReduxForm;

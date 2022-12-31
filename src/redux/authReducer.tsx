@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI, usersAPI} from "../api/api";
+import {authAPI, securityAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 
 
@@ -7,7 +7,8 @@ const initialState = {
     email: null as string | null,
     login: null as string | null,
     id: null as string | null,
-    isAuth: false as boolean
+    isAuth: false as boolean,
+    captchaURL: null as null | string,
 }
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -16,6 +17,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
             return {
                 ...state,
                 ...action.payload,
+            }
+        case 'auth/GET_CAPTCHA_URL_SUCCESS':
+            return {
+                ...state, captchaURL: action.captchaURL
             }
 
         default:
@@ -34,14 +39,16 @@ export const getAuth = () => {
         }
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return async (dispatch: Dispatch) => {
-        const res = await authAPI.login(email, password, rememberMe)
+export const login = (email: string, password: string, rememberMe: boolean, captcha: string | null) => {
+    return async (dispatch: Dispatch<any>) => {
+        const res = await authAPI.login(email, password, rememberMe, captcha)
 
         if (res.data.resultCode === 0) {
-            // @ts-ignore
             dispatch(getAuth())
         } else {
+            if (res.data.resultCode === 10) {
+                dispatch(getCaptcha())
+            }
             const message = res.data.messages.length > 0 ? res.data.messages[0] : 'Incorrect value'
             dispatch(stopSubmit('login', {_error: message}))
         }
@@ -57,12 +64,23 @@ export const logOut = () => {
         }
     }
 }
+export const getCaptcha = () => {
+    return async (dispatch: Dispatch) => {
+        const res = await securityAPI.getCaptchaURL()
+        const captchaUrl = res.data.url
+
+        dispatch(getCaptchaURLSuccess(captchaUrl))
+    }
+}
 
 //actions
 export const setAuthUserData = (email: string | null, login: string | null, id: string | null, isAuth: boolean) => {
     return {type: 'auth/SET_USER_DATA', payload: {email, login, id, isAuth}} as const
 }
+export const getCaptchaURLSuccess = (captchaURL: null | string) => {
+    return {type: 'auth/GET_CAPTCHA_URL_SUCCESS', captchaURL} as const
+}
 
 //types
-export type AuthActionType = ReturnType<typeof setAuthUserData>
+export type AuthActionType = ReturnType<typeof setAuthUserData> | ReturnType<typeof getCaptchaURLSuccess>
 export type InitialStateType = typeof initialState

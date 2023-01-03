@@ -19,17 +19,9 @@ import {Error404} from "./components/common/Error404/Error404";
 
 
 class App extends React.Component<PropsType> {
-    catchAllUnHandlerErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
-        alert(promiseRejectionEvent)
-    }
-
+    
     componentDidMount() {
         this.props.initializeApp()
-        window.addEventListener('unhandledrejection', this.catchAllUnHandlerErrors)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('unhandledrejection', this.catchAllUnHandlerErrors)
     }
 
     render() {

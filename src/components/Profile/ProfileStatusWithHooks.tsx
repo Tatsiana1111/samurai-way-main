@@ -1,9 +1,6 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
-type StateType = {
-    editMode: boolean
-    status: string
-}
+
 export type ProfileStatusType = {
     status: string
     updateStatus: (status: string) => void

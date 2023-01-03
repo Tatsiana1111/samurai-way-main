@@ -2,6 +2,7 @@ import {AppStoreType, PostType} from "./reduxStore";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
+import {AxiosError} from "axios";
 
 
 const initialState = {
@@ -57,10 +58,16 @@ export const getStatus = (userId: string) => {
 }
 export const updateStatus = (status: string) => {
     return async (dispatch: Dispatch) => {
-        const res = await profileAPI.updateStatus(status)
+        try {
+            const res = await profileAPI.updateStatus(status)
 
-        if (res.resultCode === 0) {
-            dispatch(setStatus(status))
+            if (res.resultCode === 0) {
+                dispatch(setStatus(status))
+            } else if (res.resultCode === 1) {
+                alert(res.messages[0])
+            }
+        } catch (err) {
+            const error = err as AxiosError
         }
     }
 }
